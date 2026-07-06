@@ -1,1 +1,3 @@
 # metinmixpro
+
+Discord in index
