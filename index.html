@@ -74,7 +74,6 @@
     </header>
 
     <main>
-        <!-- HERO SECTION -->
         <section class="relative max-w-5xl mx-auto text-center px-6 pt-20 md:pt-32 pb-16 flex flex-col items-center overflow-hidden">
             <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
@@ -87,12 +86,12 @@
                 <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span> Next-Gen Matchmaking System
             </div>
 
-            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight mb-6 [[leading-relaxed-[1.1] max-w-4xl">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight mb-6 max-w-4xl leading-[1.1]">
                 Automate Mixes & Ranked on your <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-amber-400">Metin2 Server</span>
             </h1>
 
             <p class="text-base md:text-lg text-gray-400 max-w-3xl mx-auto mb-12 font-normal leading-relaxed">
-                Provide your competitive private server community with a fully automated matchmaking engine featuring algorithmic MMR balancing, dynamic Metin2 class restrictions, instant voice room routing, and crisis mid-game player substitutions.
+                Provide your competitive private server community with a matchmaking engine featuring an advanced MMR system, Captain Mix Pick drafts, automated team voice rooms routing, and staff dynamic substitutions controls.
             </p>
 
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto px-4">
@@ -105,7 +104,6 @@
             </div>
         </section>
 
-        <!-- STATS COUNTER -->
         <section class="max-w-5xl mx-auto px-6 mb-28">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-8 rounded-3xl bg-gray-950/40 border border-gray-900 shadow-xl backdrop-blur-sm text-center">
                 <div class="p-4 sm:border-r border-gray-800/40 last:border-0">
@@ -124,21 +122,19 @@
                     <div class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-emerald-400">
                         <span class="count-up" data-target="99.99" data-decimals="2">0</span>%
                     </div>
-                    <div class="text-xs text-gray-500 font-bold mt-1.5 uppercase tracking-widest">Uptime Architecture</div>
+                    <div class="text-xs text-gray-500 font-bold mt-1.5 uppercase tracking-widest">Bot Uptime</div>
                 </div>
             </div>
         </section>
 
-        <!-- RANKED PIPELINE FLOW -->
-        <section id="ranked-flow" class="max-[1400px] mx-auto px-6 py-20 border-t border-gray-900/60">
+        <section id="ranked-flow" class="max-w-7xl mx-auto px-6 py-20 border-t border-gray-900/40">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">The Competitive 5vs5 Ranked Lifecycle</h2>
-                <p class="text-gray-400 mt-3 text-base">Watch how the bot structuralizes full 10-player rooms, balances composition weights, and pushes real-time database updates.</p>
+                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">The 5vs5 Match Lifecycle</h2>
+                <p class="text-gray-400 mt-3 text-base">Track how the engine structures team queues, balances class setups, and calculates ELO updates.</p>
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
 
-                <!-- STEP 1 : QUEUE REGISTRATION -->
                 <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full">
                     <div class="flex items-center gap-3 mb-4">
                         <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
@@ -150,76 +146,27 @@
                             <span class="text-gray-400 text-xs mt-0.5 block">Today at 7:53 PM</span>
                         </div>
                     </div>
-                    <div class="space-y-1.5 mb-4 text-[#dbdee1]">
-                        <p class="leading-relaxed font-semibold">⚔️ <span class="text-gray-400 font-bold">Match Players:</span>
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Ares</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Volg</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Shadow</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Zephyr</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Phoenix</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Ragnar</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Kratos</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Shinji</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Blaze</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Xenon</span>
-                        </p>
-                    </div>
-                    <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-[#e74c3c] shadow-inner mb-4 space-y-3">
-                        <div class="font-bold text-white text-sm flex items-center gap-1.5">
-                            <span>🏆 🎲 AUTOMATIC RANKED MATCH: 5vs5 (BODY)</span>
-                        </div>
-                        <div class="text-xs text-gray-300 font-semibold space-y-1">
-                            <p>Queue Progress: <span class="text-white">10/10</span></p>
-                            <p class="text-gray-400 italic font-normal">Lobbies are dynamically handled using live MMR ratings.</p>
-                        </div>
-                        <div class="space-y-2.5 pt-1 text-xs">
-                            <div>
-                                <span class="font-bold text-white">💂 WARRIOR (2/2)</span>
-                                <ul class="text-gray-300 pl-2 mt-0.5 font-mono">
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Isis</span> (1081 Elo)</li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Exploit.</span> (1038 Elo)</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <span class="font-bold text-white">诚 SURA (2/2)</span>
-                                <ul class="text-gray-300 pl-2 mt-0.5 font-mono">
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Issak</span> (1049 Elo)</li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Kratos</span> (1050 Elo)</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <span class="font-bold text-white">🥷 NINJA (2/2)</span>
-                                <ul class="text-gray-300 pl-2 mt-0.5 font-mono">
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Shadow</span> (1045 Elo)</li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Shinji</span> (1048 Elo)</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <span class="font-bold text-white">🐉 DRAGON (2/2)</span>
-                                <ul class="text-gray-300 pl-2 mt-0.5 font-mono">
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Zephyr</span> (1020 Elo)</li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Blaze</span> (1050 Elo)</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <span class="font-bold text-white">🌿 HEALER (2/2)</span>
-                                <ul class="text-gray-300 pl-2 mt-0.5 font-mono">
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Phoenix</span> (1022 Elo)</li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Xenon</span> (1045 Elo)</li>
-                                </ul>
-                            </div>
+                    <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-[#e74c3c] shadow-inner mb-4 space-y-1">
+                        <div class="font-bold text-white text-sm pb-1">🏆 BODY RANDOM MIX • QUEUE LOBBY</div>
+                        <div class="bg-[#0f111a] p-3 rounded-lg font-mono text-[11px] leading-relaxed border border-gray-900 shadow-inner text-gray-300">
+                            <p class="text-amber-400 font-bold">CLASS SETUP      STATUS    QUEUED ROSTER</p>
+                            <p class="text-gray-600">————————————————————————————</p>
+                            <p>🔹 <span class="text-white">WARRIOR   </span> (2/02) <span class="text-emerald-400">[FULL]</span> <span class="text-white">Isis, Exploit.</span></p>
+                            <p>🔹 <span class="text-white">SURA      </span> (2/02) <span class="text-emerald-400">[FULL]</span> <span class="text-white">Issak, Kratos</span></p>
+                            <p>🔹 <span class="text-white">NINJA     </span> (2/02) <span class="text-emerald-400">[FULL]</span> <span class="text-white">Shadow, Shinji</span></p>
+                            <p>🔹 <span class="text-white">DRAGON    </span> (2/02) <span class="text-emerald-400">[FULL]</span> <span class="text-white">Zephyr, Blaze</span></p>
+                            <p>🔹 <span class="text-white">HEALER    </span> (2/02) <span class="text-emerald-400">[FULL]</span> <span class="text-white">Phoenix, Xenon</span></p>
                         </div>
                     </div>
                     <div class="grid grid-cols-5 gap-1.5">
-                        <button class="bg-[#da373c] text-white font-bold py-1.5 rounded text-[10px]">Warrior</button>
-                        <button class="bg-[#da373c] text-white font-bold py-1.5 rounded text-[10px]">Sura</button>
-                        <button class="bg-[#da373c] text-white font-bold py-1.5 rounded text-[10px]">Ninja</button>
-                        <button class="bg-[#da373c] text-white font-bold py-1.5 rounded text-[10px]">Dragon</button>
-                        <button class="bg-[#da373c] text-white font-bold py-1.5 rounded text-[10px]">Healer</button>
+                        <button class="bg-[#4f545c] text-gray-200 font-bold py-1.5 rounded text-[10px] cursor-not-allowed" disabled>Warrior</button>
+                        <button class="bg-[#4f545c] text-gray-200 font-bold py-1.5 rounded text-[10px] cursor-not-allowed" disabled>Sura</button>
+                        <button class="bg-[#4f545c] text-gray-200 font-bold py-1.5 rounded text-[10px] cursor-not-allowed" disabled>Ninja</button>
+                        <button class="bg-[#4f545c] text-gray-200 font-bold py-1.5 rounded text-[10px] cursor-not-allowed" disabled>Dragon</button>
+                        <button class="bg-[#4f545c] text-gray-200 font-bold py-1.5 rounded text-[10px] cursor-not-allowed" disabled>Healer</button>
                     </div>
                 </div>
 
-                <!-- STEP 2 : LOBBY LAUNCHED -->
                 <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full">
                     <div class="flex items-center gap-3 mb-4">
                         <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
@@ -231,39 +178,22 @@
                             <span class="text-gray-400 text-xs mt-0.5 block">Today at 7:46 PM</span>
                         </div>
                     </div>
-                    <div class="space-y-1 mb-4 text-[#dbdee1]">
-                        <p class="font-medium text-[#40daff]">🚀 <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Mix</span> - Match Ready!</p>
+                    <div class="space-y-1 mb-3 text-[#dbdee1]">
+                        <p class="font-medium text-[#40daff]">🚀 @Mix — Lobby Active!</p>
+                        <p class="text-xs text-gray-400">⚔️ <span class="font-bold">Match Players:</span> <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Isis</span>, <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Issak</span>, <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Shadow</span>...</p>
                     </div>
-                    <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-[#1259b6] shadow-inner mb-4 space-y-3">
-                        <div class="font-bold text-white text-sm">
-                            🏆 COMPETITIVE RANKED MATCH STARTED (BODY)
-                        </div>
-                        <div class="grid grid-cols-2 gap-4 text-xs pt-1">
-                            <div>
-                                <div class="flex items-center gap-1 font-bold text-[#5865f2] mb-1">🔵 BLUE (Avg: 1054 Elo)</div>
-                                <div class="text-[11px] text-gray-400 mb-1.5 font-semibold">Cap: <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Issak</span></div>
-                                <ul class="space-y-1 text-gray-300 font-mono text-[11px]">
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Isis</span> <span class="text-gray-500">(1081) - Warrior</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Issak</span> <span class="text-gray-500">(1049) - Sura</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Shadow</span> <span class="text-gray-500">(1045) - Ninja</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Zephyr</span> <span class="text-gray-500">(1020) - Dragon</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Phoenix</span> <span class="text-gray-500">(1022) - Healer</span></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-1 font-bold text-[#f23f43] mb-1">🔴 RED (Avg: 1046 Elo)</div>
-                                <div class="text-[11px] text-gray-400 mb-1.5 font-semibold">Cap: <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Exploit.</span></div>
-                                <ul class="space-y-1 text-gray-300 font-mono text-[11px]">
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Exploit.</span> <span class="text-gray-500">(1038) - Warrior</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Kratos</span> <span class="text-gray-500">(1050) - Sura</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Shinji</span> <span class="text-gray-500">(1048) - Ninja</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Blaze</span> <span class="text-gray-500">(1050) - Dragon</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Xenon</span> <span class="text-gray-500">(1045) - Healer</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="text-[11px] text-purple-400 font-mono pt-1.5 border-t border-gray-700/40">
-                            https://metinmixpro.xyz
+                    <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-[#1259b6] shadow-inner mb-4 space-y-2">
+                        <div class="font-bold text-white text-xs">⚔️ BODY CASUAL MIX • LOBBY ACTIVE</div>
+                        <div class="bg-[#0f111a] p-3 rounded-lg font-mono text-[11px] leading-relaxed border border-gray-900 shadow-inner">
+                            <p class="flex justify-between font-bold"><span class="text-cyan-400">BLUE TEAM</span> <span class="text-yellow-400">VS</span> <span class="text-rose-400">RED TEAM</span></p>
+                            <p class="text-gray-600">————————————————————————————</p>
+                            <p class="flex justify-between"><span class="text-cyan-400">• Isis [C] (War)</span> <span class="text-blue-400">SLOT 01</span> <span class="text-rose-400">• Exploit. [C] (War)</span></p>
+                            <p class="flex justify-between"><span class="text-cyan-400">• Issak (Sur)</span> <span class="text-blue-400">SLOT 02</span> <span class="text-rose-400">• Kratos (Sur)</span></p>
+                            <p class="flex justify-between"><span class="text-cyan-400">• Shadow (Nin)</span> <span class="text-blue-400">SLOT 03</span> <span class="text-rose-400">• Shinji (Nin)</span></p>
+                            <p class="flex justify-between"><span class="text-cyan-400">• Zephyr (Dra)</span> <span class="text-blue-400">SLOT 04</span> <span class="text-rose-400">• Blaze (Dra)</span></p>
+                            <p class="flex justify-between"><span class="text-cyan-400">• Phoenix (Hea)</span> <span class="text-blue-400">SLOT 05</span> <span class="text-rose-400">• Xenon (Hea)</span></p>
+                            <p class="text-gray-600">————————————————————————————</p>
+                            <p class="text-center text-blue-400">ARENA WEIGHT</p>
                         </div>
                     </div>
                     <div class="flex gap-2">
@@ -272,7 +202,6 @@
                     </div>
                 </div>
 
-                <!-- STEP 3 : RESOLUTION & ELO MATRIX -->
                 <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full">
                     <div class="flex items-center gap-3 mb-4">
                         <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
@@ -281,37 +210,32 @@
                                 <span class="font-bold text-white hover:underline cursor-pointer">MIX PRO - Beta</span>
                                 <span class="bg-[#5865F2] text-[9px] px-1.5 py-0.5 rounded text-white font-black tracking-wide">APP</span>
                             </div>
-                            <span class="text-gray-400 text-xs mt-0.5 block">Today at 7:46 PM</span>
+                            <span class="text-gray-500 text-xs mt-0.5 block">Today at 7:46 PM</span>
                         </div>
                     </div>
-                    <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-[#23a55a] shadow-inner space-y-3.5">
-                        <div class="font-black text-white text-sm tracking-wide">
-                            🏁 RANKED COMPLETED - Issak WON
-                        </div>
-                        <div class="space-y-3 text-[11px] pt-1 font-mono">
+                    <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-[#23a55a] shadow-inner space-y-3">
+                        <div class="font-black text-white text-sm tracking-wide">🏁 COMPETITIVE RANKED SETTLED • BLUE VICTORY</div>
+                        <div class="space-y-2.5 text-[11px] pt-1">
                             <div>
-                                <div class="font-sans font-bold text-[#5865f2] mb-1">🔵 BLUE TEAM (🟢 VICTORIOUS • Avg: 1054)</div>
-                                <p class="text-gray-200">• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Isis</span> 🏆 : 1081 → <span class="text-emerald-400 font-bold">1107</span> (+26) <span class="bg-amber-500/10 text-amber-400 px-1 rounded text-[9px] font-sans">🏆 +5 MVP</span></p>
-                                <p class="text-gray-200">• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Issak</span> 👑 : 1049 → <span class="text-emerald-400 font-bold">1078</span> (+29) <span class="bg-blue-500/10 text-blue-400 px-1 rounded text-[9px] font-sans">👑 +2 CAP</span></p>
-                                <p class="text-gray-300">• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Shadow</span> : 1045 → <span class="text-emerald-400 font-bold">1066</span> (+21)</p>
-                                <p class="text-gray-300">• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Zephyr</span> : 1020 → <span class="text-emerald-400 font-bold">1042</span> (+22)</p>
-                                <p class="text-gray-300">• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Phoenix</span> : 1022 → <span class="text-emerald-400 font-bold">1046</span> (+24)</p>
+                                <div class="font-bold text-blue-400 mb-1">🔵 BLUE TEAM | 🏆 VICTORIOUS (Avg: 1054)</div>
+                                <div class="text-gray-300 font-sans leading-relaxed pl-1 space-y-1.5">
+                                    <p>&gt; <span class="bg-[#3c4270]/40 text-[#dee0fc] px-1.5 py-0.5 rounded-md font-medium">@Isis</span> • 1081 ➔ 1107 (📈 +26) <span class="text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded text-[9px] font-mono">🏆 MVP (+5)</span></p>
+                                    <p>&gt; <span class="bg-[#3c4270]/40 text-[#dee0fc] px-1.5 py-0.5 rounded-md font-medium">@Issak</span> • 1049 ➔ 1078 (📈 +29) <span class="text-blue-400 bg-blue-500/10 px-1.5 py-0.5 rounded text-[9px] font-mono">👑 CAP (+2)</span></p>
+                                    <p>&gt; <span class="bg-[#3c4270]/40 text-[#dee0fc] px-1.5 py-0.5 rounded-md font-medium">@Shadow</span> • 1045 ➔ 1066 (📈 +21)</p>
+                                </div>
                             </div>
-                            <div>
-                                <div class="font-sans font-bold text-[#f23f43] mb-1">🔴 RED TEAM (🔴 DEFEATED • Avg: 1046)</div>
-                                <p class="text-gray-400">• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Exploit.</span> 👑 : 1038 → <span class="text-rose-400 font-bold">1020</span> (-18) <span class="bg-blue-500/10 text-blue-400 px-1 rounded text-[9px] font-sans">👑 +2 CAP</span></p>
-                                <p class="text-gray-400">• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Kratos</span> : 1050 → <span class="text-rose-400 font-bold">1029</span> (-21)</p>
-                                <p class="text-gray-400">• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Shinji</span> : 1048 → <span class="text-rose-400 font-bold">1029</span> (-19)</p>
-                                <p class="text-gray-400">• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Blaze</span> : 1050 → <span class="text-rose-400 font-bold">1030</span> (-20)</p>
-                                <p class="text-gray-400">• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Xenon</span> : 1045 → <span class="text-rose-400 font-bold">1023</span> (-22)</p>
+                            <div class="mt-2.5">
+                                <div class="font-bold text-red-400 mb-1">🔴 RED TEAM | 💀 DEFEATED (Avg: 1046)</div>
+                                <div class="text-gray-400 font-sans leading-relaxed pl-1 space-y-1.5">
+                                    <p>&gt; <span class="bg-[#3c4270]/40 text-[#dee0fc] px-1.5 py-0.5 rounded-md font-medium">@Exploit.</span> • 1038 ➔ 1020 (📉 -18) <span class="text-blue-300 bg-blue-500/10 px-1.5 py-0.5 rounded text-[9px] font-mono">👑 CAP</span></p>
+                                    <p>&gt; <span class="bg-[#3c4270]/40 text-[#dee0fc] px-1.5 py-0.5 rounded-md font-medium">@Kratos</span> • 1050 ➔ 1029 (📉 -21)</p>
+                                    <p>&gt; <span class="bg-[#3c4270]/40 text-[#dee0fc] px-1.5 py-0.5 rounded-md font-medium">@Shinji</span> • 1048 ➔ 1029 (📉 -19)</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="pt-2 border-t border-gray-700/40 space-y-1 text-xs">
-                            <span class="font-bold text-amber-400 block">🏆 MATCH MVP SETTLED</span>
-                            <p class="text-gray-300">👑 <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Isis</span> has been crowned match MVP (+5 Bonus Elo)!</p>
-                        </div>
-                        <div class="text-[11px] text-purple-400 font-mono pt-1.5 border-t border-gray-700/40">
-                            https://metinmixpro.xyz
+                        <div class="pt-2 border-t border-gray-700/40 text-xs">
+                            <span class="font-bold text-amber-400 block">🌟 MATCH MVP SETTLED</span>
+                            <p class="text-gray-300 font-medium mt-1">&gt; <span class="bg-[#3c4270]/40 text-[#dee0fc] px-1.5 py-0.5 rounded-md font-medium">@Isis</span> has been crowned match MVP for outstanding performance!</p>
                         </div>
                     </div>
                 </div>
@@ -319,209 +243,152 @@
             </div>
         </section>
 
-        <!-- IN-APP SHOWCASE -->
         <section id="showcase" class="max-w-[1400px] mx-auto px-6 py-20 border-t border-gray-900/60">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Pixel-Perfect Interface Execution</h2>
-                <p class="text-gray-400 mt-3 text-base">Clean embeds, organized player logs, and interactive UI/UX components natively generated right inside your server.</p>
+                <p class="text-gray-400 mt-3 text-base">Advanced ANSI grid embeds, permanent standings leaderboard, and direct confrontational profiles.</p>
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
 
-                <!-- 1. EMBED AUTOMATIC MATCH -->
-                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm select-none h-full">
+                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full">
                     <div class="flex items-center gap-3 mb-4">
                         <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
                         <div>
                             <div class="flex items-center gap-1.5">
-                                <span class="font-bold text-white hover:underline cursor-pointer">Metin2 - Mix PRO</span>
+                                <span class="font-bold text-white hover:underline cursor-pointer">MIX PRO - Beta</span>
                                 <span class="bg-[#5865F2] text-[9px] px-1.5 py-0.5 rounded text-white font-black tracking-wide">APP</span>
                             </div>
-                            <span class="text-gray-400 text-xs mt-0.5 block">Today at 7:53 PM</span>
-                        </div>
-                    </div>
-                    <div class="space-y-1.5 mb-4 text-[#dbdee1]">
-                        <p class="leading-relaxed font-semibold">⚔️ <span class="text-white">Match Players:</span>
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Ares</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Volg</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Shadow</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Zephyr</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Phoenix</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Ragnar</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Kratos</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Shinji</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Blaze</span>,
-                            <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded cursor-pointer hover:bg-[#4752c4]">@Xenon</span>
-                        </p>
-                        <p>🎲 Teams distributed automatically. Proceed to team voice rooms!</p>
-                    </div>
-                    <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-[#23a55a] shadow-inner mb-4">
-                        <div class="font-bold text-white text-base mb-3 flex items-center gap-2">
-                            <span>🎲 BODY AUTOMATIC MIX STARTED</span>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <div class="flex items-center gap-1.5 font-bold text-[#5865f2] mb-2 text-xs uppercase tracking-wider">🔵 BLUE TEAM</div>
-                                <ul class="text-xs space-y-1 text-gray-300 font-medium">
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Volg</span> <span class="text-gray-500">(Warrior)</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Vortex</span> <span class="text-gray-500">(Sura)</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Shadow</span> <span class="text-gray-500">(Ninja)</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Zephyr</span> <span class="text-gray-500">(Dragon)</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Phoenix</span> <span class="text-gray-500">(Healer)</span></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-1.5 font-bold text-[#f23f43] mb-2 text-xs uppercase tracking-wider">🔴 RED TEAM</div>
-                                <ul class="text-xs space-y-1 text-gray-300 font-medium">
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Ragnar</span> <span class="text-gray-500">(Warrior)</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Kratos</span> <span class="text-gray-500">(Sura)</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Shinji</span> <span class="text-gray-500">(Ninja)</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Blaze</span> <span class="text-gray-500">(Dragon)</span></li>
-                                    <li>• <span class="bg-[#3c4270] text-[#dee0fc] px-1 rounded">@Xenon</span> <span class="text-gray-500">(Healer)</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="bg-[#5865F2] hover:bg-[#4752C4] text-white font-medium px-4 py-1.5 rounded text-xs transition">BLUE WIN</button>
-                        <button class="bg-[#ED4245] hover:bg-[#C03537] text-white font-medium px-4 py-1.5 rounded text-xs transition">RED WIN</button>
-                    </div>
-                </div>
-
-                <!-- 2. EMBED LEADERBOARD -->
-                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm select-none h-full">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
-                        <div>
-                            <div class="flex items-center gap-1.5">
-                                <span class="font-bold text-white hover:underline cursor-pointer">Metin2 - Mix PRO</span>
-                                <span class="bg-[#5865F2] text-[9px] px-1.5 py-0.5 rounded text-white font-black tracking-wide">APP</span>
-                            </div>
-                            <span class="text-gray-400 text-xs mt-0.5 block">Today at 3:22 PM</span>
+                            <span class="text-gray-500 text-xs mt-0.5 block">Yesterday at 9:44 AM</span>
                         </div>
                     </div>
 
                     <div class="bg-[#2b2d31] p-5 rounded-xl border-l-4 border-amber-500 space-y-4">
                         <div class="font-black text-white text-base tracking-wide flex items-center gap-2">
-                            <span>🏆 COMPETITIVE RANKINGS LEADERBOARD (LIVE)</span>
+                            <span>🏆 COMPETITIVE LEADERBOARD • SEASON 3</span>
                         </div>
-                        <div class="text-xs text-gray-400 italic pb-2 border-b border-gray-700/50">This board updates live instantly upon match completions and automatic MMR calculations.</div>
+                        <div class="text-xs text-gray-500 italic pb-2 border-b border-gray-800/60">Live server arena indexing tracking absolute matchmaking performance.</div>
 
-                        <div class="space-y-3 pt-2">
-                            <div class="flex items-center justify-between text-sm bg-gray-900/20 p-2.5 rounded-xl border border-gray-800/20">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-base filter drop-shadow">🥇</span>
-                                    <span class="bg-[#3c4270] text-[#dee0fc] px-2 py-0.5 rounded text-xs font-bold">@Volg</span>
-                                </div>
-                                <span class="text-amber-400 text-xs font-black bg-amber-500/5 px-3 py-1 rounded-xl border border-amber-500/20 tracking-wide">1942 MMR Elo</span>
-                            </div>
-                            <div class="flex items-center justify-between text-sm bg-gray-900/10 p-2.5 rounded-xl border border-gray-800/20">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-base filter drop-shadow">🥈</span>
-                                    <span class="bg-[#3c4270] text-[#dee0fc] px-2 py-0.5 rounded text-xs font-bold">@Ragnar</span>
-                                </div>
-                                <span class="text-gray-300 text-xs font-black bg-gray-400/5 px-3 py-1 rounded-xl border border-gray-400/20 tracking-wide">1863 MMR Elo</span>
-                            </div>
-                            <div class="flex items-center justify-between text-sm bg-gray-900/10 p-2.5 rounded-xl border border-gray-800/20">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-base filter drop-shadow">🥉</span>
-                                    <span class="bg-[#3c4270] text-[#dee0fc] px-2 py-0.5 rounded text-xs font-bold">@Ares</span>
-                                </div>
-                                <span class="text-orange-400 text-xs font-black bg-orange-500/5 px-3 py-1 rounded-xl border border-orange-500/20 tracking-wide">1662 MMR Elo</span>
-                            </div>
-                            <div class="flex items-center justify-between text-sm p-1.5 px-3 text-gray-300">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-gray-500 font-bold text-xs font-mono">#4</span>
-                                    <span class="bg-[#3c4270] text-[#dee0fc] px-1.5 py-0.5 rounded text-xs font-semibold">@Vortex</span>
-                                </div>
-                                <span class="text-gray-400 text-xs font-bold font-mono">1095 MMR</span>
-                            </div>
-                            <div class="flex items-center justify-between text-sm p-1.5 px-3 text-gray-300">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-gray-500 font-bold text-xs font-mono">#5</span>
-                                    <span class="bg-[#3c4270] text-[#dee0fc] px-1.5 py-0.5 rounded text-xs font-semibold">@Blaze</span>
-                                </div>
-                                <span class="text-gray-400 text-xs font-bold font-mono">1050 MMR</span>
-                            </div>
+                        <span class="text-[11px] font-bold text-gray-300 block">📋 STANDINGS MATRIX ARRAY</span>
+
+                        <div class="bg-[#0f111a] p-3 rounded-lg font-mono text-[11px] leading-relaxed overflow-x-auto border border-gray-900 shadow-inner">
+                            <p class="text-yellow-400 font-bold">RNK  PLAYER PROFILE          MMR STATUS    WINRATE</p>
+                            <p class="text-gray-600">——”——”——”——”——”——”——”——”——”——”——</p>
+                            <p><span class="text-gray-500">#01</span>  Volg                 <span class="text-purple-400 font-bold">2300 MMR</span>  🔥  <span class="text-emerald-400">0% WR  </span> <span class="text-gray-600">(0W-0L)</span></p>
+                            <p><span class="text-gray-500">#02</span>  ISSAK                <span class="text-rose-500 font-bold">1000 MMR</span>  ▫️  <span class="text-emerald-400">0% WR  </span> <span class="text-gray-600">(0W-0L)</span></p>
+                            <p><span class="text-gray-500">#03</span>  Exploit.             <span class="text-rose-500 font-bold">1000 MMR</span>  ▫️  <span class="text-emerald-400">0% WR  </span> <span class="text-gray-600">(0W-0L)</span></p>
+                            <p><span class="text-gray-500">#04</span>  Cataldy              <span class="text-rose-500 font-bold">1000 MMR</span>  ▫️  <span class="text-emerald-400">0% WR  </span> <span class="text-gray-600">(0W-0L)</span></p>
+                            <p><span class="text-gray-500">#05</span>  Aled                 <span class="text-rose-500 font-bold">1000 MMR</span>  ▫️  <span class="text-emerald-400">0% WR  </span> <span class="text-gray-600">(0W-0L)</span></p>
+                            <p><span class="text-gray-500">#06</span>  User_706504          <span class="text-rose-500 font-bold">1000 MMR</span>  ▫️  <span class="text-emerald-400">0% WR  </span> <span class="text-gray-600">(0W-0L)</span></p>
                         </div>
-
-                        <div class="text-[10px] text-gray-500 pt-3 border-t border-gray-700/50 flex justify-between font-mono">
-                            <span>metinmixpro.xyz • Rubnum Mix Server</span>
-                            <span>Last Sync: 07/08/2026 20:00</span>
+                        <div class="text-[10px] text-gray-600 pt-1 flex justify-between font-mono">
+                            <span>metinmixpro.xyz</span>
+                            <span>Last Live Sync: 07/15/2026 at 09:44:34</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 3. EMBED PROFILE -->
-                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm select-none h-full">
+                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full">
                     <div class="flex items-center gap-3 mb-4">
                         <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
                         <div>
                             <div class="flex items-center gap-1.5">
-                                <span class="font-bold text-white hover:underline cursor-pointer">Metin2 - Mix PRO</span>
+                                <span class="font-bold text-white hover:underline cursor-pointer">MIX PRO - Beta</span>
                                 <span class="bg-[#5865F2] text-[9px] px-1.5 py-0.5 rounded text-white font-black tracking-wide">APP</span>
                             </div>
-                            <span class="text-gray-400 text-xs mt-0.5 block">Today at 4:10 PM</span>
+                            <span class="text-gray-500 text-xs mt-0.5 block">Yesterday at 9:44 AM</span>
                         </div>
                     </div>
 
-                    <div class="bg-[#2b2d31] p-5 rounded-xl border-l-4 border-purple-500 relative overflow-hidden">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="font-black text-white text-base tracking-wide">⚔️ PLAYER CARD PROFILE</h3>
-                                <p class="text-xs text-gray-400 mt-0.5">Operational records for <span class="text-[#dee0fc] bg-[#3c4270] px-1 rounded">@Volg</span>.</p>
+                    <div class="bg-[#2b2d31] p-5 rounded-xl border-l-4 border-purple-500 relative overflow-hidden space-y-3">
+                        <div>
+                            <h3 class="font-black text-white text-base tracking-wide">👤 VOLG • COMPETITIVE PROFILE</h3>
+                            <p class="text-xs text-gray-300 mt-1"><strong>Rank tiers:</strong> 🔮 <span class="text-gray-400 font-mono">DIAMOND IMMORTAL</span></p>
+                            <p class="text-xs text-gray-300 mt-0.5"><strong>Badges:</strong> <span class="text-blue-400 font-bold bg-blue-950/20 px-1 rounded text-[10px]">🛡️ STAFF</span> <span class="text-purple-400 font-bold bg-purple-950/20 px-1 rounded text-[10px]">⚔️ KoW</span> <span class="text-amber-400 font-bold bg-amber-950/20 px-1 rounded text-[10px]">👑 CHAMPION</span></p>
+                        </div>
+                        <p class="text-gray-600 font-mono text-xs">————————————————————————————</p>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-[#0f111a] p-2 rounded border border-gray-900 font-mono text-[10px] leading-relaxed">
+                                <span class="text-gray-500 block font-sans font-bold">📊 LIVE RATINGS</span>
+                                <p><span class="text-blue-400">Current MMR:</span> <span class="text-emerald-400 font-bold">2300 MMR</span></p>
+                                <p><span class="text-blue-400">Peak Score :</span> <span class="text-cyan-400 font-bold">2300 MMR</span></p>
+                                <p><span class="text-blue-400">Streak     :</span> <span class="text-rose-400">0</span></p>
                             </div>
-                            <div class="w-10 h-10 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-xl flex items-center justify-center font-black text-white text-xs shadow-md border border-purple-400/20">
-                                V
+                            <div class="bg-[#0f111a] p-2 rounded border border-gray-900 font-mono text-[10px] leading-relaxed">
+                                <span class="text-gray-500 block font-sans font-bold">🥷 PERFORMANCE MATRIX</span>
+                                <p><span class="text-blue-400">Main Role  :</span> <span class="text-gray-200">Warrior</span></p>
+                                <p><span class="text-blue-400">Total Match:</span> <span class="text-gray-200 font-bold">0 Games</span></p>
+                                <p><span class="text-blue-400">Winrate    :</span> <span class="text-emerald-400 font-bold">0% WR</span></p>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-2 mb-4">
-                            <div class="bg-[#1e1f22]/50 p-2 rounded-lg border border-gray-800/40">
-                                <span class="text-[9px] font-bold text-gray-400 uppercase block tracking-wider">📈 Rating Standing</span>
-                                <span class="text-purple-400 font-black text-xs font-mono">1942 MMR</span>
+                        <div class="bg-[#0f111a] p-2 rounded border border-gray-900 text-[11px]">
+                            <div class="flex justify-between text-gray-400 mb-1 font-bold">
+                                <span>📋 RATIO STABILITY BREAKDOWN</span>
+                                <span>Wins: 0 • Losses: 0</span>
                             </div>
-                            <div class="bg-[#1e1f22]/50 p-2 rounded-lg border border-gray-800/40">
-                                <span class="text-[9px] font-bold text-gray-400 uppercase block tracking-wider">⭐ Peak Score</span>
-                                <span class="text-gray-300 font-black text-xs font-mono">2015 MMR</span>
-                            </div>
-                            <div class="bg-[#1e1f22]/50 p-2 rounded-lg border border-gray-800/40">
-                                <span class="text-[9px] font-bold text-gray-400 uppercase block tracking-wider">🎯 Favorite Role</span>
-                                <span class="text-amber-400 font-bold text-[11px]">🥷 Warrior <span class="text-[9px] text-gray-500 font-normal">(18 G)</span></span>
-                            </div>
-                            <div class="bg-[#1e1f22]/50 p-2 rounded-lg border border-gray-800/40">
-                                <span class="text-[9px] font-bold text-gray-400 uppercase block tracking-wider">🔥 Current Streak</span>
-                                <span class="text-emerald-400 font-black text-xs">5 Wins 🔥</span>
+                            <div class="bg-gray-950 h-2 rounded overflow-hidden flex">
+                                <div class="bg-gray-800 w-full"></div>
                             </div>
                         </div>
 
-                        <div class="bg-[#1e1f22]/40 border border-gray-800/40 p-2.5 rounded-lg mb-4">
-                            <div class="flex justify-between text-[11px] font-bold text-gray-400 mb-1">
-                                <span>📋 Breakdown</span>
-                                <span>W: <strong class="text-emerald-400 font-mono">22</strong> • L: <strong class="text-rose-400 font-mono">10</strong></span>
-                            </div>
-                            <div class="text-[10px] tracking-tighter select-none font-mono">
-                                🟩🟩🟩🟩🟩🟩🟩🟩🟩🟥🟥🟥🟥
-                            </div>
+                        <div class="text-[11px] space-y-1">
+                            <span class="text-gray-400 font-bold block">🗄️ HISTORICAL SEASONAL ARCHIVES</span>
+                            <p class="text-gray-300 font-medium">▫️ Season 1: Rank 🥇 — <span class="font-mono font-bold text-white">1207 MMR</span></p>
+                            <p class="text-gray-300 font-medium">▫️ Season 2: Rank 🥇 — <span class="font-mono font-bold text-white">2238 MMR</span></p>
                         </div>
-
-                        <div class="space-y-1">
-                            <span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block">🗄️ Seasonal Archives</span>
-                            <div class="text-xs space-y-0.5 text-gray-300 font-medium">
-                                <p>• Season 2: Rank 🥇 - 1850 MMR <span class="text-gray-500 font-normal">(Peak: 1910)</span></p>
-                                <p>• Season 1: Rank 🥈 - 1620 MMR <span class="text-gray-500 font-normal">(Peak: 1650)</span></p>
-                            </div>
-                        </div>
-
-                        <div class="text-[10px] text-gray-500 pt-3 mt-4 border-t border-gray-700/50 flex justify-between font-mono">
-                            <span>metinmixpro.xyz • Requested by Volg</span>
+                        <div class="text-[10px] text-gray-600 pt-1 font-mono">
+                            <span>Secure Endpoint Node • METIN2 MIX - PRO</span>
                         </div>
                     </div>
                 </div>
+
+                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
+                        <div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-bold text-white hover:underline cursor-pointer">MIX PRO - Beta</span>
+                                <span class="bg-[#5865F2] text-[9px] px-1.5 py-0.5 rounded text-white font-black tracking-wide">APP</span>
+                            </div>
+                            <span class="text-gray-500 text-xs mt-0.5 block">Yesterday at 9:46 AM</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#2b2d31] p-5 rounded-xl border-l-4 border-purple-500 space-y-4">
+                        <div class="font-black text-white text-base tracking-wide flex items-center gap-2">
+                            <span>⚔️ COMPETITIVE HEAD-TO-HEAD MATRIX</span>
+                        </div>
+                        <div class="text-xs text-gray-300 font-semibold space-y-0.5">
+                            <p>Node Alpha: <span class="text-[#dee0fc] bg-[#3c4270] px-1 rounded">@Cataldy</span></p>
+                            <p>Node Omega: <span class="text-[#dee0fc] bg-[#3c4270] px-1 rounded">@Volg</span></p>
+                        </div>
+
+                        <span class="text-[11px] font-bold text-gray-300 block">📋 COMPARATIVE METRICS OVERVIEW</span>
+
+                        <div class="bg-[#0f111a] p-3 rounded-lg font-mono text-[11px] leading-relaxed text-center border border-gray-900 shadow-inner">
+                            <div class="flex justify-between font-bold mb-1.5 border-b border-gray-900 pb-1">
+                                <span class="text-blue-400">Cataldy</span>
+                                <span class="text-yellow-400">VS</span>
+                                <span class="text-cyan-400">Volg</span>
+                            </div>
+                            <div class="flex justify-between"><span class="text-rose-500">1000 pts</span> <span class="text-blue-500">Live MMR</span> <span class="text-emerald-400 font-bold">2300 pts</span></div>
+                            <div class="flex justify-between"><span class="text-rose-500">1000 pts</span> <span class="text-blue-500">Peak ELO</span> <span class="text-emerald-400 font-bold">2300 pts</span></div>
+                            <div class="flex justify-between"><span class="text-gray-300">0%</span> <span class="text-blue-500">Winrate </span> <span class="text-gray-300">0%</span></div>
+                            <div class="flex justify-between"><span class="text-gray-300">0 G</span> <span class="text-blue-500">Matches </span> <span class="text-gray-300">0 G</span></div>
+                            <div class="flex justify-between"><span class="text-gray-300">0 W</span> <span class="text-blue-500">W-Streak</span> <span class="text-gray-300">0 W</span></div>
+                            <div class="flex justify-between"><span class="text-gray-400">Dragon</span> <span class="text-blue-500">Main Role</span> <span class="text-gray-400">Warrior</span></div>
+                        </div>
+                        <div class="text-[10px] text-gray-600 pt-1 font-mono">
+                            <span>Confrontation Engine Node • METIN2 MIX - PRO</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- USER REVIEWS SECTION -->
         <section id="reviews" class="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900/60 relative">
             <div class="absolute top-1/2 left-1/4 w-80 h-80 bg-purple-600/5 rounded-full blur-[120px] pointer-events-none"></div>
 
@@ -586,7 +453,6 @@
             </div>
         </section>
 
-        <!-- FEATURES SECTION -->
         <section id="features" class="max-w-7xl mx-auto px-6 py-24 border-t border-gray-900/60 relative">
             <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-600/5 rounded-full blur-[100px] pointer-events-none"></div>
 
@@ -600,7 +466,7 @@
                     <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xl text-purple-400 mb-6 group-hover:scale-110 transition duration-300">
                         <i class="fa-solid fa-scale-balanced"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 mb-3">Algorithmic Balance Matrix</h3>
+                    <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 mb-3">Algorithmic MMR Balancing</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">
                         Say goodbye to random stacked lobbies. The system dynamically reads real-time MMR values and distributes faction rosters into perfectly optimized competitive pools via <span class="text-purple-400 bg-purple-500/10 px-1.5 py-0.5 rounded font-mono text-xs">/ranked</span>.
                     </p>
@@ -626,7 +492,6 @@
             </div>
         </section>
 
-        <!-- AFFILIATE NETWORK -->
         <section id="affiliate" class="max-w-5xl mx-auto px-6 py-12 mb-12">
             <div class="relative rounded-3xl bg-gradient-to-br from-purple-950/20 via-gray-900/40 to-pink-950/20 border border-purple-500/20 p-8 md:p-12 overflow-hidden shadow-2xl glow-effect">
                 <div class="absolute -right-16 -top-16 w-56 h-56 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -655,7 +520,6 @@
             </div>
         </section>
 
-        <!-- PRICING SECTION -->
         <section id="pricing" class="max-w-5xl mx-auto px-6 py-20 border-t border-gray-900/60">
             <div class="text-center max-w-xl mx-auto mb-16">
                 <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Simple, Transparent Licenses</h2>
@@ -675,7 +539,7 @@
                         <li class="flex items-center gap-2.5 text-gray-200"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Full /mix & /ranked match pipelines</li>
                         <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Automated Seasonal Resets (`/season`)</li>
                         <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Real-time Permanent Live Leaderboards</li>
-                        <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Automatic algorithmic player MMR tracing</li>
+                        <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Automatic player MMR tracing</li>
                         <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Emergency LiveSubstitution (`/sub`) Overrides</li>
                         <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Dynamic automated team voice channel routing</li>
                         <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Free performance & core security updates</li>
@@ -688,7 +552,6 @@
             </div>
         </section>
 
-        <!-- FAQ SECTION -->
         <section class="max-w-4xl mx-auto px-6 py-12 mb-16 border-t border-gray-900/60">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-black text-white tracking-tight">Frequently Answered Parameters</h2>
@@ -703,7 +566,7 @@
                 <div class="bg-gray-950/20 border border-gray-900 p-5 rounded-2xl shadow-md">
                     <h4 class="font-bold text-white text-base mb-2"><i class="fa-solid fa-circle-question text-purple-400 text-xs mr-1.5"></i> How does the ranked matchmaking matrix balance teams?</h4>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                        Unlike basic random bots, our engine uses a calibrated <strong class="text-amber-400">algorithmic MMR balancing system</strong>. When a lobby forms, it analyzes the live Elo rating of all 10 players to distribute them mathematically. This prevents unbalances (like putting the 5 strongest players on the same side) and ensures perfectly mirrored, competitive, and fair matches.
+                        Our engine uses a calibrated <strong class="text-amber-400">algorithmic MMR balancing system</strong>. When a lobby forms, it analyzes the live Elo rating of all 10 players to distribute them mathematically. This prevents unbalances (like putting the 5 strongest players on the same side) and ensures perfectly mirrored, competitive, and fair matches.
                     </p>
                 </div>
                 <div class="bg-gray-950/20 border border-gray-900 p-5 rounded-2xl shadow-md">
@@ -721,7 +584,6 @@
         <div class="text-gray-700">This service is not affiliated with Gameforge 4D GmbH or Webzen Inc.</div>
     </footer>
 
-    <!-- INTERACTIVE JAVASCRIPT LOGIC LOOP FOR INTUITIVE COUNT-UP ANIMATION -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const counters = document.querySelectorAll('.count-up');
