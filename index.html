@@ -1,892 +1,547 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth bg-[#06080F]">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link class="rounded-xl" rel="icon" type="image/jpeg" href="logo.jpg">
-    <title>Metin2 Mix PRO - The Ultimate Matchmaking Engine</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <title>Metin2 Mix PRO — The Esports Matchmaking Engine for Private Servers</title>
 
-    <meta name="description" content="Automate 5vs5 mixes, competitive ranked matchmaking, and arena economy on your Metin2 server. Features algorithmic balancing, voice routing, dice duels, and profile cards.">
-    <meta property="og:title" content="🔮 Metin2 Mix PRO - Competitive Matchmaking Engine">
-    <meta property="og:description" content="Next-Gen Matchmaking System: Automated draft & ranked mixes, custom cosmetic shop, dice duels, and instant voice routing for Metin2 Private Servers.">
+    <meta name="description" content="Automated 5v5 mixes, MMR-balanced ranked queues, mirrored captain drafts, and instant Discord voice routing for Metin2 communities.">
+    <meta property="og:title" content="⚔️ Metin2 Mix PRO — Matchmaking Engine">
+    <meta property="og:description" content="Instant 5v5 lobbies, fair MMR matchmaking, captain draft system, and sub hot-swapping.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://metinmixpro.xyz">
     <meta property="og:image" content="https://metinmixpro.xyz/logo.jpg">
-    <meta name="theme-color" content="#9933FF">
+    <meta name="theme-color" content="#6366F1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#EEF2FF',
+                            500: '#6366F1',
+                            600: '#4F46E5',
+                            700: '#4338CA',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        body {
-            background-color: #080c14;
+        .grid-pattern {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
         }
-        .glow-effect::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, #9333ea, #ec4899, #10b981);
-            border-radius: inherit;
-            padding: 1px;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
+
+        .glass-card {
+            background: linear-gradient(180deg, rgba(17, 24, 39, 0.6) 0%, rgba(10, 15, 29, 0.7) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
         }
-        .glow-premium::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, #10b981, #7d3c98, #f59e0b);
-            border-radius: inherit;
-            padding: 2px;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
+
+        .glass-card-hover {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .glass-card-hover:hover {
+            transform: translateY(-2px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 30px -10px rgba(99, 102, 241, 0.15);
+        }
+
         .d-mention {
-            background-color: rgba(88, 101, 242, 0.3);
-            color: #c9cdfb;
-            padding: 1px 5px;
+            background-color: rgba(99, 102, 241, 0.18);
+            color: #C7D2FE;
+            padding: 1px 6px;
             border-radius: 4px;
             font-weight: 600;
         }
+
         .d-badge {
-            background-color: #1e1f22;
-            color: #dbdee1;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            padding: 1px 5px;
+            background-color: #0F172A;
+            color: #E2E8F0;
+            padding: 1px 6px;
             border-radius: 4px;
-            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
         }
+
         .cls-icon {
-            width: 17px;
-            height: 17px;
+            width: 15px;
+            height: 15px;
             display: inline-block;
-            vertical-align: -3px;
+            vertical-align: -2px;
             object-fit: contain;
         }
     </style>
 </head>
 
-<body class="text-gray-300 font-sans antialiased bg-[#080c14] selection:bg-purple-500/30 selection:text-purple-200">
+<body class="text-slate-300 font-sans antialiased bg-[#06080F] selection:bg-indigo-500/30 selection:text-indigo-200">
 
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#080c14]/80 border-b border-gray-800/40 transition-all duration-300">
-        <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3 group cursor-pointer">
-                <img src="logo.jpg" alt="Metin2 Mix PRO Logo" class="w-9 h-9 object-cover rounded-xl border border-purple-500/30 shadow-md transition transform group-hover:scale-105 group-hover:rotate-6">
-                <span class="text-xl font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-emerald-400">
-                    Metin2 Mix PRO
+    <!-- Ambient Glow Top -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[480px] pointer-events-none -z-10 overflow-hidden">
+        <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[640px] h-[360px] bg-gradient-to-tr from-indigo-600/20 via-purple-600/20 to-pink-600/10 blur-[130px] rounded-full"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#06080F]/75 border-b border-white/[0.06]">
+        <nav class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="logo.jpg" alt="Logo" class="w-8 h-8 rounded-lg object-cover ring-1 ring-white/10 shadow-sm">
+                <span class="text-base font-extrabold tracking-tight text-white flex items-center gap-1.5">
+                    Metin2 Mix <span class="text-indigo-400 bg-indigo-500/10 px-1.5 py-0.5 rounded text-xs font-mono">PRO</span>
                 </span>
             </div>
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a href="#features" class="text-gray-400 hover:text-white transition">Features</a>
-                <a href="#economy" class="text-gray-400 hover:text-white transition">Economy & Casino</a>
-                <a href="#ranked-flow" class="text-gray-400 hover:text-white transition">Match Lifecycle</a>
-                <a href="#showcase" class="text-gray-400 hover:text-white transition">Live Preview</a>
-                <a href="#reviews" class="text-gray-400 hover:text-white transition">Reviews</a>
-                <a href="#affiliate" class="text-purple-400 hover:text-purple-300 transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-coins text-xs"></i> Earn Money
-                </a>
-                <a href="#pricing" class="text-gray-400 hover:text-white transition">Pricing</a>
+
+            <div class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <a href="#flow" class="hover:text-white transition">Match Engine</a>
+                <a href="#ranked" class="hover:text-white transition">Ranked & Elo</a>
+                <a href="#features" class="hover:text-white transition">Modes & Tools</a>
+                <a href="#reviews" class="hover:text-white transition">Reviews</a>
+                <a href="#pricing" class="hover:text-white transition">Pricing</a>
             </div>
-            <div>
-                <a href="https://discord.gg/emgX63dqFc" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-purple-900/40 transition transform hover:-translate-y-0.5 active:translate-y-0">
-                    <i class="fa-brands fa-discord text-base"></i> Get The Bot
+
+            <div class="flex items-center gap-3">
+                <a href="https://discord.gg/emgX63dqFc" target="_blank" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-xs font-bold transition shadow-lg shadow-indigo-900/30">
+                    <i class="fa-brands fa-discord"></i> Get Access
                 </a>
             </div>
         </nav>
     </header>
 
-    <main>
+    <main class="relative">
+        <!-- Background Grid Pattern -->
+        <div class="absolute inset-0 grid-pattern pointer-events-none -z-10"></div>
+
         <!-- Hero Section -->
-        <section class="relative max-w-5xl mx-auto text-center px-6 pt-20 md:pt-32 pb-16 flex flex-col items-center overflow-hidden">
-            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-
-            <div class="mb-8 relative group">
-                <div class="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-emerald-500 rounded-[2.5rem] blur-2xl opacity-40 group-hover:opacity-60 transition duration-500"></div>
-                <img src="logo.jpg" alt="Metin2 Mix PRO Hub Avatar" class="relative w-36 h-36 md:w-40 md:h-40 object-cover rounded-[2.2rem] border border-purple-500/30 shadow-2xl transition transform group-hover:scale-105 group-hover:rotate-1 duration-300">
+        <section class="max-w-5xl mx-auto px-6 pt-20 md:pt-28 pb-20 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-slate-300 text-xs font-medium mb-8">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>Automated 5v5 Mix & Competitive Ranked Engine</span>
             </div>
 
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-bold mb-6 uppercase tracking-wider animate-pulse">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Emerald Luxury Update • Arena Economy Active
-            </div>
-
-            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight mb-6 max-w-4xl leading-[1.1]">
-                Automate Mixes, Ranked & Arena Economy on your <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-emerald-400">Metin2 Server</span>
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight mb-6 leading-[1.06]">
+                Stop making mixes by hand.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">
+                    Instant lobbies, zero queue lag.
+                </span>
             </h1>
 
-            <p class="text-base md:text-lg text-gray-400 max-w-3xl mx-auto mb-12 font-normal leading-relaxed">
-                Provide your competitive private server community with an automated matchmaking engine featuring esports class sorting, real-time MMR balancing, high-stakes Dice duels, interactive Arena Shops, and dynamic voice room routing.
+            <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Players select their class with one click. The bot balances teams with MMR, picks captains, routes voice rooms instantly, tracks Elo ratings, and handles AFK dodge penalties.
             </p>
 
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto px-4">
-                <a href="#pricing" class="w-full sm:w-auto bg-gradient-to-r from-purple-500 via-pink-500 to-emerald-400 hover:opacity-95 text-gray-950 px-8 py-4 rounded-xl font-black text-base shadow-xl shadow-purple-900/30 transition transform hover:-translate-y-1 flex items-center justify-center gap-2">
-                    Get Instant Access (€4.99) <i class="fa-solid fa-arrow-right text-xs"></i>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-3.5 mb-16">
+                <a href="#pricing" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white px-7 py-3.5 rounded-xl font-bold text-sm shadow-xl shadow-indigo-950/60 transition flex items-center justify-center gap-2">
+                    Deploy on Your Server (€4.99) <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>
-                <a href="#showcase" class="w-full sm:w-auto border border-gray-800 hover:border-gray-700 bg-gray-900/30 hover:bg-gray-900/60 text-gray-300 px-8 py-4 rounded-xl font-bold text-base transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-eye text-sm"></i> Live Interface Preview
+                <a href="#flow" class="w-full sm:w-auto bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-slate-300 px-7 py-3.5 rounded-xl font-semibold text-sm transition">
+                    Inspect Match Lifecycle
                 </a>
             </div>
-        </section>
 
-        <!-- Stats Section -->
-        <section class="max-w-5xl mx-auto px-6 mb-28 relative z-10">
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 p-8 rounded-3xl bg-[#0b0f19] border border-gray-900/60 shadow-2xl text-center">
-                <div class="p-4 sm:border-r border-gray-800/40">
-                    <div class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-                        <span class="count-up" data-target="500">0</span>+
-                    </div>
-                    <div class="text-xs text-gray-500 font-bold mt-1.5 uppercase tracking-widest">Active Players</div>
+            <!-- Fast Metrics Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-2xl glass-card max-w-4xl mx-auto text-left">
+                <div class="p-3">
+                    <div class="text-xl sm:text-2xl font-black text-white font-mono">&lt; 1 sec</div>
+                    <div class="text-xs text-slate-400 mt-0.5">Voice dispatch time</div>
                 </div>
-                <div class="p-4 sm:border-r border-gray-800/40">
-                    <div class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-amber-400">
-                        <span class="count-up" data-target="10000">0</span>+
-                    </div>
-                    <div class="text-xs text-gray-500 font-bold mt-1.5 uppercase tracking-widest">Mixes Concluded</div>
+                <div class="p-3 border-l border-white/[0.06]">
+                    <div class="text-xl sm:text-2xl font-black text-indigo-400 font-mono">100% Fair</div>
+                    <div class="text-xs text-slate-400 mt-0.5">Algorithmic MMR parity</div>
                 </div>
-                <div class="p-4 sm:border-r border-gray-800/40">
-                    <div class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-emerald-400">
-                        <span class="count-up" data-target="500000">0</span>+
-                    </div>
-                    <div class="text-xs text-gray-500 font-bold mt-1.5 uppercase tracking-widest">Coins Wagered</div>
+                <div class="p-3 border-l border-white/[0.06]">
+                    <div class="text-xl sm:text-2xl font-black text-emerald-400 font-mono">Live /sub</div>
+                    <div class="text-xs text-slate-400 mt-0.5">Emergency hot-swaps</div>
                 </div>
-                <div class="p-4">
-                    <div class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-                        <span class="count-up" data-target="99.99" data-decimals="2">0</span>%
-                    </div>
-                    <div class="text-xs text-gray-500 font-bold mt-1.5 uppercase tracking-widest">Engine Uptime</div>
+                <div class="p-3 border-l border-white/[0.06]">
+                    <div class="text-xl sm:text-2xl font-black text-amber-400 font-mono">Anti-AFK</div>
+                    <div class="text-xs text-slate-400 mt-0.5">Auto-jail dodge penalties</div>
                 </div>
             </div>
         </section>
 
-        <!-- Economy & Casino Feature Showcase -->
-        <section id="economy" class="max-w-7xl mx-auto px-6 py-20 border-t border-gray-900/60 relative">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-3">
-                    <i class="fa-solid fa-coins text-[10px]"></i> Arena Financial Matrix
+        <!-- Match Lifecycle -->
+        <section id="flow" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06]">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">The 3-Step Match Pipeline</h2>
+                <p class="text-slate-400 mt-2 text-sm sm:text-base">Designed for zero admin overhead: queues launch, fill, sort, and resolve automatically.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+                <!-- Step 1 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-widest">Phase 01 • Queue</span>
+                            <span class="d-badge text-[10px]">/mix & /ranked</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Class-locked registration</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-5">
+                            Fighters tap their class button to enter the pool. Enforces exact class limits (e.g. 1 per class max per side).
+                        </p>
+
+                        <div class="bg-[#0B101E] p-4 rounded-xl border border-white/[0.06] space-y-2.5 text-xs">
+                            <div class="font-bold text-white flex justify-between items-center text-[11px]">
+                                <span>🏆 BODY RANKED • QUEUE</span>
+                                <span class="text-emerald-400 font-mono">10/10 [FULL]</span>
+                            </div>
+                            <div class="font-mono text-emerald-400 text-[10px] tracking-wider">▰▰▰▰▰▰▰▰▰▰ 100%</div>
+                            <div class="space-y-1.5 pt-1.5 border-t border-white/[0.06] text-[11px]">
+                                <div class="flex justify-between text-slate-300">
+                                    <span><img src="emojis/warrior.png" class="cls-icon" alt=""> Warrior</span>
+                                    <span class="text-slate-400"><span class="d-mention">@Volg</span>, <span class="d-mention">@IronWarrior</span></span>
+                                </div>
+                                <div class="flex justify-between text-slate-300">
+                                    <span><img src="emojis/sura.png" class="cls-icon" alt=""> Sura</span>
+                                    <span class="text-slate-400"><span class="d-mention">@DarkTemplar</span>, <span class="d-mention">@FrostMage</span></span>
+                                </div>
+                                <div class="flex justify-between text-slate-300">
+                                    <span><img src="emojis/ninja.png" class="cls-icon" alt=""> Ninja</span>
+                                    <span class="text-slate-400"><span class="d-mention">@ShadowBlade</span>, <span class="d-mention">@GhostArcher</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-white/[0.06] text-[11px] text-slate-400">
+                        ⚡ Optional voice <strong>Ready-Check</strong> with automated temporary jail on timeout.
+                    </div>
                 </div>
-                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Thriving Economy, Cosmetics & Casino</h2>
-                <p class="text-gray-400 mt-2 text-base">Give players reasons to stay connected with daily rewards, customized collectible themes, balance leaderboards, and PvP dice duels.</p>
+
+                <!-- Step 2 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono font-bold text-purple-400 uppercase tracking-widest">Phase 02 • Routing</span>
+                            <span class="d-badge text-[10px]">Instant Movement</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Team generation & voice dispatch</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-5">
+                            Rosters are sorted identically class by class with random captains assigned. All 10 players are moved to Blue and Red voice channels simultaneously.
+                        </p>
+
+                        <div class="bg-[#0B101E] p-4 rounded-xl border border-white/[0.06] space-y-2 text-xs">
+                            <div class="font-bold text-white text-[11px] mb-1">⚔️ MATCH ACTIVE • ROSTERS LOCKED</div>
+                            <div class="grid grid-cols-2 gap-2 text-[10px]">
+                                <div class="bg-blue-950/30 border border-blue-500/20 p-2 rounded-lg">
+                                    <span class="text-blue-300 font-bold block mb-1">🔵 BLUE (Avg: 1054)</span>
+                                    <p><img src="emojis/warrior.png" class="cls-icon" alt=""> <span class="d-mention">@Volg</span> 👑</p>
+                                    <p class="mt-1"><img src="emojis/sura.png" class="cls-icon" alt=""> <span class="d-mention">@DarkTemplar</span></p>
+                                    <p class="mt-1"><img src="emojis/ninja.png" class="cls-icon" alt=""> <span class="d-mention">@ShadowBlade</span></p>
+                                </div>
+                                <div class="bg-red-950/30 border border-red-500/20 p-2 rounded-lg">
+                                    <span class="text-red-300 font-bold block mb-1">🔴 RED (Avg: 1046)</span>
+                                    <p><img src="emojis/warrior.png" class="cls-icon" alt=""> <span class="d-mention">@BloodSeeker</span> 👑</p>
+                                    <p class="mt-1"><img src="emojis/sura.png" class="cls-icon" alt=""> <span class="d-mention">@FrostMage</span></p>
+                                    <p class="mt-1"><img src="emojis/ninja.png" class="cls-icon" alt=""> <span class="d-mention">@GhostArcher</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-white/[0.06] text-[11px] text-slate-400">
+                        🔄 Dynamic hot-swapping at any time via <code class="text-purple-300 font-mono">/sub @old @new</code>.
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">Phase 03 • Outcome</span>
+                            <span class="d-badge text-[10px]">Leaderboard & MVP</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Live rating calculations & MVP</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-5">
+                            One click settles the match. Rating calculations apply bonuses for winning captains and elected MVPs, moving fighters back to the waiting room.
+                        </p>
+
+                        <div class="bg-[#0B101E] p-4 rounded-xl border border-white/[0.06] space-y-2 text-xs">
+                            <div class="font-bold text-emerald-400 text-[11px]">🏁 BLUE VICTORY (+26 MMR)</div>
+                            <div class="space-y-1.5 text-[10px] text-slate-300 pt-1">
+                                <p>&gt; <span class="d-mention">@Volg</span> • <span class="d-badge">1081 ➔ 1107</span> <span class="text-emerald-400 font-bold">(+26)</span> 👑 🏆</p>
+                                <p>&gt; <span class="d-mention">@DarkTemplar</span> • <span class="d-badge">1049 ➔ 1078</span> <span class="text-emerald-400 font-bold">(+29)</span></p>
+                                <p class="text-slate-400">&gt; <span class="d-mention">@BloodSeeker</span> • <span class="d-badge">1038 ➔ 1020</span> <span class="text-rose-400 font-bold">(-18)</span></p>
+                            </div>
+                            <div class="pt-1.5 border-t border-white/[0.06] text-[10px] text-amber-300">
+                                🏆 <span class="d-mention">@Volg</span> voted MVP (+5 Elo bonus)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-white/[0.06] text-[11px] text-slate-400">
+                        ⚡ Interactive <strong>Revenge</strong> or <strong>New Mix</strong> lobby resets.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ranked Engine & Profiles -->
+        <section id="ranked" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06]">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-4">
+                        <i class="fa-solid fa-trophy text-[10px]"></i> Competitive League Architecture
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight mb-5">
+                        Real-time standings, profiles, and tournament cycles.
+                    </h2>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Keep players engaged through automated ranking leagues. The system tracks match histories, winstreaks, class winrates, and awards seasonal titles (<code class="d-badge text-amber-300">CHAMPION: S1</code>).
+                    </p>
+
+                    <div class="space-y-4 text-xs sm:text-sm">
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-md bg-indigo-500/10 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-chart-line text-xs"></i>
+                            </div>
+                            <div>
+                                <strong class="text-white">Permanent Live Leaderboard:</strong> Auto-updating embed synced live to your discord standings channel.
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-md bg-indigo-500/10 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-id-card text-xs"></i>
+                            </div>
+                            <div>
+                                <strong class="text-white">Player Profiles (<code class="text-indigo-300 font-mono">/profile</code>):</strong> Complete breakdown of ratings, peak MMR, winrates, and main class.
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 rounded-md bg-indigo-500/10 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-arrows-split-up-and-left text-xs"></i>
+                            </div>
+                            <div>
+                                <strong class="text-white">Head-to-Head Confrontation (<code class="text-indigo-300 font-mono">/compare</code>):</strong> Compare two rivals with win probability analysis.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Showcase Profile Card -->
+                <div class="glass-card p-6 rounded-2xl shadow-2xl">
+                    <div class="bg-[#0B101E] p-5 rounded-xl border border-white/[0.06] space-y-4 text-xs">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-black text-white text-sm">👤 VOLG • COMPETITIVE PROFILE</h3>
+                                <p class="text-slate-400 mt-1">🏆 Tier: <span class="d-badge text-amber-300">DIAMOND IMMORTAL</span> (2312 MMR)</p>
+                                <p class="text-slate-400 mt-1 flex gap-1.5">
+                                    <span class="bg-blue-500/10 text-blue-300 px-1.5 py-0.5 rounded text-[10px] font-bold">STAFF</span>
+                                    <span class="bg-amber-500/10 text-amber-300 px-1.5 py-0.5 rounded text-[10px] font-bold">CHAMPION: S2</span>
+                                </p>
+                            </div>
+                            <img src="logo.jpg" alt="Avatar" class="w-11 h-11 rounded-full border border-indigo-500/30 object-cover">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 text-[11px]">
+                            <div class="bg-slate-900/60 p-2.5 rounded-lg border border-white/[0.03] space-y-1">
+                                <span class="text-slate-400 block font-bold text-[10px] uppercase tracking-wider">RATING & STREAK</span>
+                                <p>🔹 MMR: <strong class="text-white">2312</strong></p>
+                                <p>👑 Peak: <strong>2312</strong></p>
+                                <p>⚡ Streak: <span class="text-amber-400 font-bold">🔥 4 Wins</span></p>
+                            </div>
+                            <div class="bg-slate-900/60 p-2.5 rounded-lg border border-white/[0.03] space-y-1">
+                                <span class="text-slate-400 block font-bold text-[10px] uppercase tracking-wider">PERFORMANCE</span>
+                                <p>⚔️ Main: <img src="emojis/warrior.png" class="cls-icon" alt=""> <strong>Warrior</strong></p>
+                                <p>🟢 Winrate: <strong class="text-emerald-400">100%</strong></p>
+                                <p>📊 Record: <strong>4W - 0L</strong></p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-900/60 p-2.5 rounded-lg border border-white/[0.03] text-[11px] font-mono text-emerald-400">
+                            [🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩] • 4 Wins / 0 Losses
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Extra Modules & Side Mechanics -->
+        <section id="features" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06]">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Built-in Game Modes & Arena Economy</h2>
+                <p class="text-slate-400 mt-2 text-sm sm:text-base">Keep fighters engaged between mix sessions with mini-games and customization.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-[#1e1f22]/60 border border-gray-800/80 p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-xl text-emerald-400 mb-4">
-                            <i class="fa-solid fa-store"></i>
+                        <div class="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center text-base mb-4">
+                            <i class="fa-solid fa-mask"></i>
                         </div>
-                        <h3 class="text-lg font-black text-white mb-2">Interactive Arena Shop (<span class="text-emerald-400 font-mono">/shop</span>)</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                            Players spend their match rewards and daily earnings on unique card themes, including the brand new <strong class="text-emerald-400">Emerald Luxury</strong> theme (1,200 Coins), Neon Cyan, Blood Gold, and animated badges.
+                        <h3 class="text-base font-bold text-white mb-2">Impostor & Chaos Modes</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            Deploy secret saboteur lobbies with <code class="text-pink-300 font-mono">/impostor</code> (traitors receive private DM goals to throw the match) or randomized class mutations with <code class="text-pink-300 font-mono">/chaos</code>.
                         </p>
                     </div>
-                    <div class="bg-[#2b2d31] p-3 rounded-xl border-l-2 border-emerald-400 text-xs">
-                        <span class="text-gray-300 font-bold">🛒 Features:</span> Real-time wallet balance validation & one-click inventory equipping.
-                    </div>
+                    <span class="text-[11px] text-pink-400 font-mono font-semibold mt-5 block">Premium Feature</span>
                 </div>
 
-                <div class="bg-[#1e1f22]/60 border border-gray-800/80 p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-xl text-amber-400 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center text-base mb-4">
                             <i class="fa-solid fa-dice"></i>
                         </div>
-                        <h3 class="text-lg font-black text-white mb-2">High-Stakes Dice Duels (<span class="text-amber-400 font-mono">/dice</span>)</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                            Challenge rivals in the chat for Arena Coins! The engine rolls a fair 1-100 score for both challengers, handles ties automatically, and transfers the pot instantly to the winner.
+                        <h3 class="text-base font-bold text-white mb-2">Casino Dice Duels (<span class="text-amber-400 font-mono text-xs">/dice</span>)</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            Fighters challenge rivals to 1-100 high-stakes rolls for Arena Coins. Highest score takes the pot with auto-re-roll on ties and instant coin settlement.
                         </p>
                     </div>
-                    <div class="bg-[#2b2d31] p-3 rounded-xl border-l-2 border-amber-400 text-xs">
-                        <span class="text-gray-300 font-bold">🎲 Safeguards:</span> Direct Accept/Decline interactive buttons & double wallet checks.
-                    </div>
+                    <span class="text-[11px] text-amber-400 font-mono font-semibold mt-5 block">Included in Pro & Premium</span>
                 </div>
 
-                <div class="bg-[#1e1f22]/60 border border-gray-800/80 p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xl text-purple-400 mb-4">
-                            <i class="fa-solid fa-trophy"></i>
+                        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-base mb-4">
+                            <i class="fa-solid fa-palette"></i>
                         </div>
-                        <h3 class="text-lg font-black text-white mb-2">Wealth Standings (<span class="text-purple-400 font-mono">/balancetop</span>)</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                            Display the top 10 richest players on the server. Encourages active gameplay, participation in ranked brackets, claiming <span class="d-badge text-purple-300">/daily</span>, and winning casino challenges.
+                        <h3 class="text-base font-bold text-white mb-2">Card Themes & Shop (<span class="text-emerald-400 font-mono text-xs">/share</span>)</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            Generate downloadable PNG player cards in discord with themes unlocked in <code class="text-emerald-300 font-mono">/shop</code>, including the <strong class="text-emerald-400">Emerald Luxury</strong> collection.
                         </p>
                     </div>
-                    <div class="bg-[#2b2d31] p-3 rounded-xl border-l-2 border-purple-400 text-xs">
-                        <span class="text-gray-300 font-bold">💎 Nitro Bonus:</span> Server boosters receive boosted rewards on daily claims.
-                    </div>
+                    <span class="text-[11px] text-emerald-400 font-mono font-semibold mt-5 block">Premium Feature</span>
                 </div>
             </div>
         </section>
 
-        <!-- 5vs5 Match Lifecycle (Queue, Active, Result) -->
-        <section id="ranked-flow" class="max-w-7xl mx-auto px-6 py-20 border-t border-gray-900/40">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">The Modern 5vs5 Match Lifecycle</h2>
-                <p class="text-gray-400 mt-3 text-base">Class-aligned roster rendering, random captains, mirrored draft brackets, and live MMR calculation.</p>
-            </div>
-
-            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
-
-                <!-- Card 1: Queue Lobby -->
-                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center gap-3 mb-4">
-                            <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
-                            <div>
-                                <div class="flex items-center gap-1.5">
-                                    <span class="font-bold text-white hover:underline cursor-pointer">MIX PRO</span>
-                                    <span class="bg-[#5865F2] text-[9px] px-1.5 py-0.5 rounded text-white font-black tracking-wide">APP</span>
-                                </div>
-                                <span class="text-gray-400 text-xs mt-0.5 block">Today at 7:50 PM</span>
-                            </div>
-                        </div>
-
-                        <div class="text-xs font-semibold text-gray-300 mb-2">
-                            🔔 <span class="d-mention">@Mix</span> — <span class="text-white font-bold">NEW MATCH REGISTER OPENED!</span>
-                        </div>
-
-                        <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-red-500 shadow-inner mb-4 space-y-3">
-                            <div class="font-bold text-white text-sm">🏆 BODY RANDOM MIX • QUEUE LOBBY</div>
-                            <div class="text-xs text-gray-300 flex items-center gap-2">
-                                <span>📊 <strong>Lobby Status:</strong></span>
-                                <span class="font-mono text-emerald-400 font-bold tracking-wider">▰▰▰▰▰▰▰▰▰▰</span>
-                                <span class="d-badge">100% (10/10)</span>
-                            </div>
-                            <div class="border-t border-gray-700/60 pt-2 space-y-2 text-xs">
-                                <div>
-                                    <div class="flex items-center gap-1.5">
-                                        <img src="emojis/warrior.png" class="cls-icon" alt="Warrior">
-                                        <span class="font-bold text-gray-200">WARRIOR • 2/2</span>
-                                        <span class="text-red-400 font-mono text-[10px] bg-red-950/40 px-1 rounded">[FULL]</span>
-                                    </div>
-                                    <p class="text-gray-400 pl-6 text-[11px] mt-0.5"><span class="d-mention">@Volg</span>, <span class="d-mention">@IronWarrior</span></p>
-                                </div>
-                                <div>
-                                    <div class="flex items-center gap-1.5">
-                                        <img src="emojis/sura.png" class="cls-icon" alt="Sura">
-                                        <span class="font-bold text-gray-200">SURA • 2/2</span>
-                                        <span class="text-red-400 font-mono text-[10px] bg-red-950/40 px-1 rounded">[FULL]</span>
-                                    </div>
-                                    <p class="text-gray-400 pl-6 text-[11px] mt-0.5"><span class="d-mention">@DarkTemplar</span>, <span class="d-mention">@FrostMage</span></p>
-                                </div>
-                                <div>
-                                    <div class="flex items-center gap-1.5">
-                                        <img src="emojis/ninja.png" class="cls-icon" alt="Ninja">
-                                        <span class="font-bold text-gray-200">NINJA • 2/2</span>
-                                        <span class="text-red-400 font-mono text-[10px] bg-red-950/40 px-1 rounded">[FULL]</span>
-                                    </div>
-                                    <p class="text-gray-400 pl-6 text-[11px] mt-0.5"><span class="d-mention">@ShadowBlade</span>, <span class="d-mention">@GhostArcher</span></p>
-                                </div>
-                                <div>
-                                    <div class="flex items-center gap-1.5">
-                                        <img src="emojis/dragon.png" class="cls-icon" alt="Dragon">
-                                        <span class="font-bold text-gray-200">DRAGON • 2/2</span>
-                                        <span class="text-red-400 font-mono text-[10px] bg-red-950/40 px-1 rounded">[FULL]</span>
-                                    </div>
-                                    <p class="text-gray-400 pl-6 text-[11px] mt-0.5"><span class="d-mention">@DragonSlayer</span>, <span class="d-mention">@StormBringer</span></p>
-                                </div>
-                                <div>
-                                    <div class="flex items-center gap-1.5">
-                                        <img src="emojis/healer.png" class="cls-icon" alt="Healer">
-                                        <span class="font-bold text-gray-200">HEALER • 2/2</span>
-                                        <span class="text-red-400 font-mono text-[10px] bg-red-950/40 px-1 rounded">[FULL]</span>
-                                    </div>
-                                    <p class="text-gray-400 pl-6 text-[11px] mt-0.5"><span class="d-mention">@SolarPriest</span>, <span class="d-mention">@MysticOracle</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-1.5 pt-2">
-                        <button class="bg-[#da373c] text-white font-bold py-2 rounded text-[11px] flex items-center justify-center gap-1.5"><img src="emojis/warrior.png" class="w-3.5 h-3.5 object-contain" alt=""> Warrior</button>
-                        <button class="bg-[#da373c] text-white font-bold py-2 rounded text-[11px] flex items-center justify-center gap-1.5"><img src="emojis/sura.png" class="w-3.5 h-3.5 object-contain" alt=""> Sura</button>
-                        <button class="bg-[#da373c] text-white font-bold py-2 rounded text-[11px] flex items-center justify-center gap-1.5"><img src="emojis/ninja.png" class="w-3.5 h-3.5 object-contain" alt=""> Ninja</button>
-                        <button class="bg-[#da373c] text-white font-bold py-2 rounded text-[11px] flex items-center justify-center gap-1.5"><img src="emojis/dragon.png" class="w-3.5 h-3.5 object-contain" alt=""> Dragon</button>
-                        <button class="bg-[#da373c] text-white font-bold py-2 rounded text-[11px] flex items-center justify-center gap-1.5"><img src="emojis/healer.png" class="w-3.5 h-3.5 object-contain" alt=""> Healer</button>
-                        <button class="bg-[#4e5058] text-gray-400 font-bold py-2 rounded text-[11px] flex items-center justify-center gap-1.5 cursor-not-allowed" disabled><img src="emojis/lycan.png" class="w-3.5 h-3.5 object-contain opacity-50" alt=""> Lycan</button>
-                    </div>
-                </div>
-
-                <!-- Card 2: Active Match (Aligned by Class) -->
-                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center gap-3 mb-4">
-                            <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
-                            <div>
-                                <div class="flex items-center gap-1.5">
-                                    <span class="font-bold text-white hover:underline cursor-pointer">MIX PRO</span>
-                                    <span class="bg-[#5865F2] text-[9px] px-1.5 py-0.5 rounded text-white font-black tracking-wide">APP</span>
-                                </div>
-                                <span class="text-gray-400 text-xs mt-0.5 block">Today at 7:51 PM</span>
-                            </div>
-                        </div>
-
-                        <div class="space-y-1 mb-3 text-xs text-gray-300">
-                            <p class="font-bold text-white">🚀 <span class="d-mention">@Mix</span> — <strong>Lobby Active!</strong></p>
-                            <p class="text-[11px] text-gray-400">⚔️ <strong>Match Players:</strong> <span class="d-mention">@Volg</span>, <span class="d-mention">@BloodSeeker</span>, <span class="d-mention">@DarkTemplar</span>, <span class="d-mention">@ShadowBlade</span>...</p>
-                        </div>
-
-                        <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-cyan-500 shadow-inner mb-4 space-y-3">
-                            <div class="font-bold text-white text-xs tracking-wide">⚔️ BODY CASUAL MIX • MATCH ACTIVE</div>
-                            <div class="text-[11px] text-gray-300 border-y border-gray-700/60 py-1.5 space-y-0.5">
-                                <p>🔹 <strong>Blue Captain:</strong> <span class="d-mention">@Volg</span></p>
-                                <p>🔸 <strong>Red Captain:</strong> <span class="d-mention">@BloodSeeker</span></p>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-3 pt-1 text-[11px]">
-                                <!-- Blue Squad -->
-                                <div class="bg-[#1e1f22]/60 p-2.5 rounded-lg border border-blue-500/20">
-                                    <span class="text-blue-400 font-bold block mb-1">🔵 BLUE SQUAD (5)</span>
-                                    <div class="space-y-1.5 text-gray-300">
-                                        <p class="flex items-center gap-1.5"><img src="emojis/warrior.png" class="cls-icon" alt=""> <span class="d-mention">@Volg</span> <span class="bg-amber-500/20 text-amber-300 text-[9px] px-1 rounded font-mono font-bold">👑 CAP</span></p>
-                                        <p class="flex items-center gap-1.5"><img src="emojis/sura.png" class="cls-icon" alt=""> <span class="d-mention">@DarkTemplar</span></p>
-                                        <p class="flex items-center gap-1.5"><img src="emojis/ninja.png" class="cls-icon" alt=""> <span class="d-mention">@ShadowBlade</span></p>
-                                        <p class="flex items-center gap-1.5"><img src="emojis/dragon.png" class="cls-icon" alt=""> <span class="d-mention">@DragonSlayer</span></p>
-                                        <p class="flex items-center gap-1.5"><img src="emojis/healer.png" class="cls-icon" alt=""> <span class="d-mention">@SolarPriest</span></p>
-                                    </div>
-                                </div>
-
-                                <!-- Red Squad -->
-                                <div class="bg-[#1e1f22]/60 p-2.5 rounded-lg border border-red-500/20">
-                                    <span class="text-red-400 font-bold block mb-1">🔴 RED SQUAD (5)</span>
-                                    <div class="space-y-1.5 text-gray-300">
-                                        <p class="flex items-center gap-1.5"><img src="emojis/warrior.png" class="cls-icon" alt=""> <span class="d-mention">@BloodSeeker</span> <span class="bg-amber-500/20 text-amber-300 text-[9px] px-1 rounded font-mono font-bold">👑 CAP</span></p>
-                                        <p class="flex items-center gap-1.5"><img src="emojis/sura.png" class="cls-icon" alt=""> <span class="d-mention">@FrostMage</span></p>
-                                        <p class="flex items-center gap-1.5"><img src="emojis/ninja.png" class="cls-icon" alt=""> <span class="d-mention">@GhostArcher</span></p>
-                                        <p class="flex items-center gap-1.5"><img src="emojis/dragon.png" class="cls-icon" alt=""> <span class="d-mention">@StormBringer</span></p>
-                                        <p class="flex items-center gap-1.5"><img src="emojis/healer.png" class="cls-icon" alt=""> <span class="d-mention">@MysticOracle</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2">
-                        <button class="bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold px-4 py-2 rounded-xl text-xs flex-1 transition shadow">BLUE WIN</button>
-                        <button class="bg-[#da373c] hover:bg-[#b82e33] text-white font-bold px-4 py-2 rounded-xl text-xs flex-1 transition shadow">RED WIN</button>
-                    </div>
-                </div>
-
-                <!-- Card 3: Post-Match Settlement & MVP -->
-                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center gap-3 mb-4">
-                            <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
-                            <div>
-                                <div class="flex items-center gap-1.5">
-                                    <span class="font-bold text-white hover:underline cursor-pointer">MIX PRO</span>
-                                    <span class="bg-[#5865F2] text-[9px] px-1.5 py-0.5 rounded text-white font-black tracking-wide">APP</span>
-                                </div>
-                                <span class="text-gray-400 text-xs mt-0.5 block">Today at 8:02 PM</span>
-                            </div>
-                        </div>
-
-                        <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-emerald-500 shadow-inner space-y-3">
-                            <div class="font-black text-white text-xs tracking-wide">🏁 RANKED COMPLETED • BLUE VICTORY</div>
-                            <div class="text-[11px] text-gray-400 italic">Match concluded. Standings and Arena Coins updated.</div>
-
-                            <div class="space-y-2.5 text-[11px] pt-1">
-                                <div>
-                                    <div class="font-bold text-blue-400 mb-1">🔵 BLUE TEAM (🟢 VICTORIOUS • Avg: 1054)</div>
-                                    <div class="text-gray-300 pl-1 space-y-1">
-                                        <p>&gt; <span class="d-mention">@Volg</span> • <span class="d-badge">1081 ➔ 1107</span> <span class="text-emerald-400 font-bold">(📈 +26)</span> <span class="bg-amber-500/20 text-amber-300 text-[9px] px-1 rounded font-mono font-bold">👑 CAP (+2)</span> <span class="bg-yellow-500/20 text-yellow-300 text-[9px] px-1 rounded font-mono font-bold">🏆 MVP (+5)</span></p>
-                                        <p>&gt; <span class="d-mention">@DarkTemplar</span> • <span class="d-badge">1049 ➔ 1078</span> <span class="text-emerald-400 font-bold">(📈 +29)</span></p>
-                                        <p>&gt; <span class="d-mention">@ShadowBlade</span> • <span class="d-badge">1045 ➔ 1066</span> <span class="text-emerald-400 font-bold">(📈 +21)</span></p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-red-400 mb-1">🔴 RED TEAM (🔴 DEFEATED • Avg: 1046)</div>
-                                    <div class="text-gray-400 pl-1 space-y-1">
-                                        <p>&gt; <span class="d-mention">@BloodSeeker</span> • <span class="d-badge">1038 ➔ 1020</span> <span class="text-rose-400 font-bold">(📉 -18)</span> <span class="bg-blue-500/20 text-blue-300 text-[9px] px-1 rounded font-mono font-bold">🧢 CAP</span></p>
-                                        <p>&gt; <span class="d-mention">@FrostMage</span> • <span class="d-badge">1050 ➔ 1029</span> <span class="text-rose-400 font-bold">(📉 -21)</span></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="pt-2 border-t border-gray-700/40 text-xs">
-                                <span class="font-bold text-amber-400 block">🏆 MATCH MVP ELECTED</span>
-                                <p class="text-gray-300 mt-0.5">&gt; <span class="d-mention">@Volg</span> has been crowned match MVP! (+20 Coins)</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2 pt-2">
-                        <button class="bg-[#248046] hover:bg-[#1a6334] text-white font-bold px-4 py-2 rounded-xl text-xs flex-1 transition flex items-center justify-center gap-1.5 shadow">
-                            <i class="fa-solid fa-rotate text-[11px]"></i> REVENGE
-                        </button>
-                        <button class="bg-[#da373c] hover:bg-[#b82e33] text-white font-bold px-4 py-2 rounded-xl text-xs flex-1 transition flex items-center justify-center gap-1.5 shadow">
-                            <i class="fa-solid fa-plus text-[11px]"></i> NEW MIX
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Live Showcase (Leaderboard & Profile & Compare) -->
-        <section id="showcase" class="max-w-[1400px] mx-auto px-6 py-20 border-t border-gray-900/60">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Pixel-Perfect In-App Showcase</h2>
-                <p class="text-gray-400 mt-3 text-base">Permanent standings leaderboard, structured card profiles with ratio breakdown, and versus matrices.</p>
-            </div>
-
-            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
-
-                <!-- Showcase 1: Permanent Live Leaderboard -->
-                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
-                        <div>
-                            <div class="flex items-center gap-1.5">
-                                <span class="font-bold text-white hover:underline cursor-pointer">MIX PRO</span>
-                                <span class="bg-[#5865F2] text-[9px] px-1.5 py-0.5 rounded text-white font-black tracking-wide">APP</span>
-                            </div>
-                            <span class="text-gray-500 text-xs mt-0.5 block">Permanent Board Sync</span>
-                        </div>
-                    </div>
-                    <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-amber-400 space-y-3">
-                        <div class="font-black text-white text-sm tracking-wide">🏆 COMPETITIVE LEADERBOARD • SEASON 3</div>
-                        <div class="text-[11px] text-gray-400 border-b border-gray-700/60 pb-2">Live server standings tracking competitive performance rating.</div>
-
-                        <div class="text-[11px] space-y-2 pt-1">
-                            <span class="font-bold text-amber-300 block">👑 TOP CONTENDERS (1 - 10)</span>
-                            <div class="space-y-2 text-gray-200">
-                                <p class="flex items-center gap-1.5 flex-wrap">
-                                    <span>🥇</span>
-                                    <img src="emojis/warrior.png" class="cls-icon" alt="">
-                                    <span class="d-mention">@Volg</span> •
-                                    <span class="d-badge text-amber-300 font-bold">2312 MMR</span> •
-                                    <span>🟢 <strong class="text-white">100%</strong></span>
-                                    <span class="d-badge text-gray-300">4W - 0L</span>
-                                    <span class="d-badge text-amber-400 font-bold">🔥 4W</span> • 🪙 <span class="text-amber-300 font-bold">1,840</span>
-                                </p>
-                                <p class="flex items-center gap-1.5 flex-wrap">
-                                    <span>🥈</span>
-                                    <img src="emojis/sura.png" class="cls-icon" alt="">
-                                    <span class="d-mention">@DarkTemplar</span> •
-                                    <span class="d-badge">1032 MMR</span> •
-                                    <span>🟢 <strong class="text-white">100%</strong></span>
-                                    <span class="d-badge text-gray-300">1W - 0L</span> • 🪙 <span class="text-amber-300 font-bold">950</span>
-                                </p>
-                                <p class="flex items-center gap-1.5 flex-wrap">
-                                    <span>🥉</span>
-                                    <img src="emojis/ninja.png" class="cls-icon" alt="">
-                                    <span class="d-mention">@ShadowBlade</span> •
-                                    <span class="d-badge">1000 MMR</span> •
-                                    <span>⚪ <strong class="text-white">0%</strong></span>
-                                    <span class="d-badge text-gray-300">0W - 0L</span> • 🪙 <span class="text-amber-300 font-bold">400</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="text-[10px] text-gray-500 pt-2 border-t border-gray-700/40 flex justify-between font-mono">
-                            <span>metinmixpro.xyz</span>
-                            <span>Last Sync: Today at 13:50:19</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Showcase 2: Modern Profile Card -->
-                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
-                        <div>
-                            <div class="flex items-center gap-1.5">
-                                <span class="font-bold text-white hover:underline cursor-pointer">MIX PRO</span>
-                                <span class="bg-[#5865F2] text-[9px] px-1.5 py-0.5 rounded text-white font-black tracking-wide">APP</span>
-                            </div>
-                            <span class="text-gray-500 text-xs mt-0.5 block">Slash Command Output</span>
-                        </div>
-                    </div>
-                    <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-purple-500 space-y-3">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="font-black text-white text-sm tracking-wide">👤 VOLG • COMPETITIVE CARD</h3>
-                                <p class="text-xs text-gray-300 mt-1">🏆 <strong>Tier Division:</strong> 🔮 <span class="d-badge">DIAMOND IMMORTAL</span></p>
-                                <p class="text-xs text-gray-300 mt-0.5">🪙 <strong>Arena Balance:</strong> <strong class="text-amber-300">1,840 Coins</strong></p>
-                                <p class="text-xs text-gray-300 mt-0.5">🎨 <strong>Theme:</strong> <span class="text-emerald-400 font-bold">EMERALD LUXURY</span></p>
-                                <p class="text-xs text-gray-300 mt-1 flex items-center gap-1.5 flex-wrap">
-                                    <span>🎖️ <strong>Badges:</strong></span>
-                                    <span class="bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded text-[10px] font-bold">🛡️ STAFF</span>
-                                    <span class="bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded text-[10px] font-bold">👑 CHAMPION</span>
-                                </p>
-                            </div>
-                            <img src="logo.jpg" alt="Player Avatar" class="w-11 h-11 rounded-full border border-purple-500/30 object-cover">
-                        </div>
-
-                        <div class="border-t border-gray-700/60 pt-2 grid grid-cols-2 gap-2 text-xs">
-                            <div class="bg-[#1e1f22]/60 p-2.5 rounded-lg space-y-1">
-                                <span class="text-gray-400 font-bold block text-[10px] uppercase tracking-wider mb-1">📊 RATING & STREAK</span>
-                                <p class="text-gray-300">🔹 <strong>Live MMR:</strong> <span class="d-badge font-bold text-white">2312</span></p>
-                                <p class="text-gray-300">👑 <strong>Peak Score:</strong> <span class="d-badge">2312</span></p>
-                                <p class="text-gray-300">⚡ <strong>Streak:</strong> <span class="d-badge text-amber-400 font-bold">🔥 4 Wins</span></p>
-                            </div>
-                            <div class="bg-[#1e1f22]/60 p-2.5 rounded-lg space-y-1">
-                                <span class="text-gray-400 font-bold block text-[10px] uppercase tracking-wider mb-1">🎮 PERFORMANCE</span>
-                                <p class="text-gray-300 flex items-center gap-1">🎭 <strong>Main:</strong> <img src="emojis/warrior.png" class="cls-icon" alt=""> <span class="d-badge">Warrior</span></p>
-                                <p class="text-gray-300">🟢 <strong>Winrate:</strong> <span class="d-badge text-emerald-400 font-bold">100%</span></p>
-                                <p class="text-gray-300">⚔️ <strong>Record:</strong> <span class="d-badge">4W - 0L</span></p>
-                            </div>
-                        </div>
-
-                        <div class="bg-[#1e1f22]/60 p-2.5 rounded-lg text-xs space-y-1">
-                            <span class="text-gray-400 font-bold block text-[10px] uppercase tracking-wider">📈 SQUAD RATIO BREAKDOWN</span>
-                            <div class="font-mono text-[11px] text-emerald-400 flex items-center gap-2 pt-0.5">
-                                <span class="tracking-widest">[🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩]</span>
-                                <span class="text-gray-300">• 🟢 <span class="d-badge">4 Wins</span> / 🔴 <span class="d-badge">0 Losses</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Showcase 3: Head-to-Head Compare Matrix -->
-                <div class="bg-[#1e1f22] border border-gray-800/80 p-5 rounded-2xl shadow-2xl text-left text-sm h-full">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="logo.jpg" alt="Bot Mini Avatar" class="w-10 h-10 rounded-full object-cover border border-purple-500/20">
-                        <div>
-                            <div class="flex items-center gap-1.5">
-                                <span class="font-bold text-white hover:underline cursor-pointer">MIX PRO</span>
-                                <span class="bg-[#5865F2] text-[9px] px-1.5 py-0.5 rounded text-white font-black tracking-wide">APP</span>
-                            </div>
-                            <span class="text-gray-500 text-xs mt-0.5 block">Versus Confrontation</span>
-                        </div>
-                    </div>
-                    <div class="bg-[#2b2d31] p-4 rounded-xl border-l-4 border-indigo-500 space-y-3">
-                        <div class="font-black text-white text-xs tracking-wide">⚔️ COMPETITIVE HEAD-TO-HEAD MATRIX</div>
-                        <div class="text-[11px] text-gray-300 border-y border-gray-700/60 py-1.5 space-y-0.5">
-                            <p>🔹 <strong>Node Alpha:</strong> <span class="d-mention">@DragonSlayer</span></p>
-                            <p>🔸 <strong>Node Omega:</strong> <span class="d-mention">@Volg</span></p>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-2.5 pt-1 text-[11px]">
-                            <div class="bg-[#1e1f22]/60 p-2.5 rounded-lg border border-blue-500/20 text-gray-300 space-y-1">
-                                <span class="text-blue-400 font-bold block mb-1">🔵 DragonSlayer</span>
-                                <p><strong>MMR:</strong> <span class="d-badge">1000</span></p>
-                                <p><strong>Winrate:</strong> ⚪ <span class="d-badge">0%</span> (0W-0L)</p>
-                                <p class="flex items-center gap-1"><strong>Role:</strong> <img src="emojis/dragon.png" class="cls-icon" alt=""> <span class="d-badge">Dragon</span></p>
-                            </div>
-                            <div class="bg-[#1e1f22]/60 p-2.5 rounded-lg border border-red-500/20 text-gray-300 space-y-1">
-                                <span class="text-red-400 font-bold block mb-1">🔴 Volg</span>
-                                <p><strong>MMR:</strong> <span class="d-badge text-emerald-400 font-bold">2312</span></p>
-                                <p><strong>Winrate:</strong> 🟢 <span class="d-badge text-emerald-400 font-bold">100%</span> (4W-0L)</p>
-                                <p class="flex items-center gap-1"><strong>Role:</strong> <img src="emojis/warrior.png" class="cls-icon" alt=""> <span class="d-badge">Warrior</span></p>
-                            </div>
-                        </div>
-
-                        <div class="text-[10px] text-gray-500 pt-2 border-t border-gray-700/40 font-mono">
-                            metinmixpro.xyz • Confrontation Engine
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Reviews -->
-        <section id="reviews" class="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900/60 relative">
-            <div class="absolute top-1/2 left-1/4 w-80 h-80 bg-purple-600/5 rounded-full blur-[120px] pointer-events-none"></div>
-
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-wider mb-3">
-                    <i class="fa-solid fa-star text-[10px]"></i> Server Owner Testimonials
-                </div>
-                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Trusted by Server Administrators</h2>
-                <p class="text-gray-400 mt-2 text-base">Here is what project leads and administrators say about our matchmaking framework.</p>
+        <!-- Testimonials -->
+        <section id="reviews" class="max-w-5xl mx-auto px-6 py-20 border-t border-white/[0.06]">
+            <div class="text-center max-w-xl mx-auto mb-14">
+                <h2 class="text-3xl font-black text-white tracking-tight">Trusted by Server Administrators</h2>
+                <p class="text-slate-400 text-sm mt-1">Direct feedback from live Metin2 private server operators.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-[#1e1f22]/40 border border-gray-900 p-6 rounded-2xl shadow-xl backdrop-blur-sm relative group hover:border-purple-500/20 transition duration-300">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-11 h-11 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full flex items-center justify-center font-black text-gray-950 text-sm border border-purple-500/20 shadow-md">
-                                SA
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-base leading-none">Oyz</h4>
-                                <span class="text-orange-400 font-bold text-xs mt-1 block">Rop2 Server Administrator</span>
-                            </div>
-                        </div>
-                        <div class="flex gap-0.5 text-amber-400 text-xs">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-xs">SA</div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Oyz</h4>
+                            <span class="text-slate-500 text-xs">Rop2 Server Administrator</span>
                         </div>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed italic">
+                    <p class="text-slate-400 text-xs leading-relaxed italic">
                         "The bot created by Volg works perfectly, and Volg is very prompt in solving any issues related to the bot he made. I recommend the bot for fun and entertainment together with friends."
                     </p>
                 </div>
 
-                <div class="bg-[#1e1f22]/40 border border-gray-900 p-6 rounded-2xl shadow-xl backdrop-blur-sm relative group hover:border-pink-500/20 transition duration-300">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-11 h-11 bg-gradient-to-tr from-pink-500 to-amber-500 rounded-full flex items-center justify-center font-black text-gray-950 text-sm border border-pink-500/20 shadow-md">
-                                PL
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-base leading-none">Anonym player</h4>
-                                <span class="text-purple-400 font-bold text-xs mt-1 block">HammerPVP Community</span>
-                            </div>
-                        </div>
-                        <div class="flex gap-0.5 text-amber-400 text-xs">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-9 h-9 rounded-full bg-pink-500/20 text-pink-300 flex items-center justify-center font-bold text-xs">GM</div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Anonym player</h4>
+                            <span class="text-slate-500 text-xs">HammerPVP Community</span>
                         </div>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed italic">
+                    <p class="text-slate-400 text-xs leading-relaxed italic">
                         "Amazing bot, we use it in our PvP server for months and it works perfectly. Clean UI, instant voice moves, and fair matchmaking."
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- Features Grid -->
-        <section id="features" class="max-w-7xl mx-auto px-6 py-24 border-t border-gray-900/60 relative">
-            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-600/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <!-- Pricing Grid -->
+        <section id="pricing" class="max-w-5xl mx-auto px-6 py-20 border-t border-white/[0.06]">
+            <div class="text-center max-w-xl mx-auto mb-14">
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Simple Licensing</h2>
+                <p class="text-slate-400 text-sm mt-1">Instant bot setup, 99.99% cloud uptime, and 24/7 technical support.</p>
 
-            <div class="text-center max-w-2xl mx-auto mb-20">
-                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Advanced Competitive Architecture</h2>
-                <p class="text-gray-400 mt-3 text-base">Engineered specifically to maximize engagement and stability for private server networks.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="relative bg-[#0d1321]/50 border border-gray-900/80 p-8 rounded-2xl transition-all duration-300 shadow-xl group hover:scale-[1.03] hover:border-transparent hover:shadow-purple-500/10 glow-effect-hover">
-                    <div class="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                    <div class="relative z-10">
-                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xl text-purple-400 mb-6 group-hover:scale-110 group-hover:bg-purple-500/20 transition duration-300">
-                            <i class="fa-solid fa-scale-balanced"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 mb-3">Algorithmic MMR Balancing</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">
-                            Say goodbye to stacked lobbies. The system dynamically reads real-time MMR values and distributes faction rosters into balanced competitive pools via <span class="d-badge text-purple-300">/ranked</span>.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="relative bg-[#0d1321]/50 border border-gray-900/80 p-8 rounded-2xl transition-all duration-300 shadow-xl group hover:scale-[1.03] hover:border-transparent hover:shadow-pink-500/10 glow-effect-hover">
-                    <div class="absolute inset-0 bg-gradient-to-br from-pink-600/20 to-orange-600/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                    <div class="relative z-10">
-                        <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-xl text-pink-400 mb-6 group-hover:scale-110 group-hover:bg-pink-500/20 transition duration-300">
-                            <i class="fa-solid fa-shuffle"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400 mb-3">Live Roster Hot-Swapping (<span class="text-pink-400 font-mono text-lg">/sub</span>)</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">
-                            Player crashed or went missing? Staff operators can run real-time substitution overrides to seamlessly replace an active lane slot, adjusting vocal and visual paths instantly.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="relative bg-[#0d1321]/50 border border-gray-900/80 p-8 rounded-2xl transition-all duration-300 shadow-xl group hover:scale-[1.03] hover:border-transparent hover:shadow-amber-500/10 glow-effect-hover">
-                    <div class="absolute inset-0 bg-gradient-to-br from-amber-600/20 to-yellow-600/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                    <div class="relative z-10">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-xl text-amber-400 mb-6 group-hover:scale-110 group-hover:bg-amber-500/20 transition duration-300">
-                            <i class="fa-solid fa-arrows-rotate"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400 mb-3">Automated Seasonal Eras</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">
-                            Manage leagues seamlessly. End tournament cycles with <span class="d-badge text-amber-300">/season</span> to archive final brackets, distribute seasonal coin bonuses, and apply precise soft-resets directly down to baseline MMR.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Affiliate Network -->
-        <section id="affiliate" class="max-w-5xl mx-auto px-6 py-12 mb-12">
-            <div class="relative rounded-3xl bg-gradient-to-br from-purple-950/20 via-gray-900/40 to-pink-950/20 border border-purple-500/20 p-8 md:p-12 overflow-hidden shadow-2xl glow-effect">
-                <div class="absolute -right-16 -top-16 w-56 h-56 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-                <div class="grid md:grid-cols-3 gap-8 items-center relative z-10">
-                    <div class="md:col-span-2 text-left">
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
-                            <i class="fa-solid fa-sack-dollar text-[10px]"></i> MixPro Affiliate Network
-                        </div>
-                        <h2 class="text-3xl font-black text-white tracking-tight mb-4">
-                            Promote & Secure Real Liquid Cash
-                        </h2>
-                        <p class="text-gray-400 text-sm md:text-base leading-relaxed font-normal">
-                            Monetize your network connections! Introduce server owners to the ecosystem and earn <span class="text-emerald-400 font-black">€10.00 instantly via PayPal</span> for every validated active system deployment verified by our staff.
-                        </p>
-                    </div>
-                    <div class="bg-gray-950/60 border border-gray-900 p-6 rounded-2xl text-center shadow-lg backdrop-blur-md">
-                        <span class="text-[10px] text-purple-400 font-black uppercase tracking-widest mb-1 block">PROMOTER COMMISSIONS</span>
-                        <div class="text-4xl font-black text-white mb-5">€10.00 <span class="text-xs text-gray-500 font-normal">/ system</span></div>
-                        <a href="https://discord.gg/emgX63dqFc" target="_blank" class="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-95 text-gray-950 font-black py-3 rounded-xl text-xs uppercase tracking-wider transition transform hover:-translate-y-0.5 active:translate-y-0 shadow-md shadow-orange-950/20">
-                            <i class="fa-solid fa-ticket-simple"></i> Open Affiliate Ticket
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pricing -->
-        <section id="pricing" class="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900/60">
-            <div class="text-center max-w-xl mx-auto mb-12">
-                <h2 class="text-3xl md:text-4xl font-black text-white tracking-tight">Simple, Transparent Licenses</h2>
-                <p class="text-gray-400 mt-2 text-base">Instant deployment. Unlock the complete matchmaking & economy suite.</p>
-
-                <div class="flex flex-wrap justify-center items-center gap-3 mt-6">
-                    <span class="text-xs text-gray-400 uppercase tracking-widest font-bold mr-1">Accepted Payments:</span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#0070BA]/10 border border-[#0070BA]/30 text-[#0070BA] font-bold text-xs">
-                        <i class="fa-brands fa-paypal"></i> PayPal
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FF5500]/10 border border-[#FF5500]/30 text-[#FF7733] font-bold text-xs">
-                        <i class="fa-solid fa-wallet"></i> Revolut
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#F7931A]/10 border border-[#F7931A]/30 text-[#F7931A] font-bold text-xs">
-                        <i class="fa-brands fa-bitcoin"></i> Bitcoin (BTC)
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#627EEA]/10 border border-[#627EEA]/30 text-[#627EEA] font-bold text-xs">
-                        <i class="fa-brands fa-ethereum"></i> Ethereum (ETH)
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#14F195]/10 border border-[#14F195]/30 text-[#14F195] font-bold text-xs">
-                        <i class="fa-solid fa-coins"></i> USDC / USDT (SOL)
-                    </span>
+                <div class="flex flex-wrap justify-center items-center gap-2 mt-4 text-xs text-slate-400">
+                    <span class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06]"><i class="fa-brands fa-paypal text-blue-400 mr-1"></i> PayPal</span>
+                    <span class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06]"><i class="fa-solid fa-wallet text-orange-400 mr-1"></i> Revolut</span>
+                    <span class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06]"><i class="fa-brands fa-bitcoin text-amber-400 mr-1"></i> Crypto (BTC / ETH / SOL)</span>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
-
-                <div class="bg-gradient-to-b from-purple-950/5 to-gray-950/40 border border-purple-900/40 hover:border-purple-500/40 p-8 rounded-3xl flex flex-col justify-between text-center shadow-xl transition-all duration-300 relative group">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch max-w-4xl mx-auto">
+                <!-- Pro License -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col justify-between text-left">
                     <div>
-                        <h3 class="text-xl font-black text-purple-400 mt-2">PRO LICENSE</h3>
-                        <p class="text-gray-500 text-xs mt-1 font-medium">Complete Matchmaking & Economy Infrastructure</p>
-                        <div class="text-4xl font-black text-white my-6 tracking-tight">€4.99 <span class="text-sm font-normal text-gray-500">/ month</span></div>
+                        <span class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-wider">STANDARD NODE</span>
+                        <h3 class="text-2xl font-black text-white mt-1">PRO LICENSE</h3>
+                        <div class="text-3xl font-black text-white my-4 font-mono">€4.99 <span class="text-xs font-normal text-slate-400">/ month</span></div>
 
-                        <ul class="text-gray-400 text-sm space-y-3.5 mb-8 text-left inline-block w-full border-t border-purple-900/20 pt-6 font-medium">
-                            <li class="flex items-center gap-2.5 text-gray-200"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Full /mix & /ranked match pipelines</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Arena Economy (<code class="d-badge text-purple-300">/shop</code>, <code class="d-badge text-purple-300">/daily</code>, <code class="d-badge text-purple-300">/coins</code>)</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Casino PvP Dice System (<code class="d-badge text-purple-300">/dice</code> & <code class="d-badge text-purple-300">/balancetop</code>)</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Automated Seasonal Resets (<code class="d-badge text-purple-300">/season</code>)</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Real-time Permanent Live Leaderboards</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Automatic player MMR balancing & Voice routing</li>
+                        <ul class="text-slate-300 text-xs space-y-3 mb-8">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Full automated 5v5 mix & ranked queues</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Mirrored captain draft modes</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Real-time MMR balancing & instant voice routing</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Permanent live sync standings leaderboard</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Arena Economy</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Emergency player hot-swap (<code class="d-badge">/sub</code>) & AFK auto-jail</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Automated season resets with Elo soft-wipe (<code class="d-badge">/season</code>)</li>
                         </ul>
                     </div>
 
-                    <a href="https://discord.gg/emgX63dqFc" target="_blank" class="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 text-white py-3.5 rounded-xl font-black text-sm uppercase tracking-wider shadow-lg shadow-purple-950/20 transition transform hover:-translate-y-0.5 active:translate-y-0">
-                        <i class="fa-brands fa-discord text-base"></i> Buy via Discord Ticket
+                    <a href="https://discord.gg/emgX63dqFc" target="_blank" class="w-full bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] text-white font-bold py-3 rounded-xl text-xs text-center transition">
+                        Order Pro License
                     </a>
                 </div>
 
-                <div class="bg-gradient-to-b from-emerald-950/10 via-purple-950/10 to-gray-950/60 border-2 border-emerald-500 p-8 rounded-3xl flex flex-col justify-between text-center shadow-2xl relative group glow-premium">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-500 via-purple-500 to-pink-500 text-gray-950 text-[10px] font-black uppercase tracking-widest px-4 py-1 rounded-full shadow-md">
-                        PREMIUM EXTRA SUITE
+                <!-- Premium License -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col justify-between text-left relative ring-1 ring-indigo-500/50 shadow-2xl">
+                    <div class="absolute -top-3 right-6 bg-gradient-to-r from-indigo-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+                        FEATURE COMPLETE
                     </div>
                     <div>
-                        <h3 class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-purple-400 to-pink-400 mt-2">PREMIUM LICENSE</h3>
-                        <p class="text-gray-400 text-xs mt-1 font-bold">Unleash Ultimate Server Engagement Parameters</p>
-                        <div class="text-5xl font-black text-white my-6 tracking-tight">€8.99 <span class="text-sm font-normal text-gray-500">/ month</span></div>
+                        <span class="text-xs font-mono font-bold text-pink-400 uppercase tracking-wider">FULL SUITE</span>
+                        <h3 class="text-2xl font-black text-white mt-1">PREMIUM LICENSE</h3>
+                        <div class="text-3xl font-black text-white my-4 font-mono">€8.99 <span class="text-xs font-normal text-slate-400">/ month</span></div>
 
-                        <ul class="text-gray-400 text-sm space-y-3.5 mb-8 text-left inline-block w-full border-t border-purple-900/30 pt-6 font-medium">
-                            <li class="flex items-center gap-2.5 text-gray-200 font-bold"><i class="fa-solid fa-star text-emerald-400 text-xs"></i> Includes ALL Pro License Features</li>
-                            <li class="flex items-center gap-2.5 text-emerald-300 font-bold"><i class="fa-solid fa-image text-emerald-400 text-xs"></i> 🖼️ Profile Cards Generator (<code class="d-badge text-emerald-300">/share</code>)</li>
-                            <li class="flex items-center gap-2.5 text-emerald-300 font-bold"><i class="fa-solid fa-palette text-emerald-400 text-xs"></i> 🟢 Unlock Emerald Luxury Theme & Custom Badges</li>
-                            <li class="flex items-center gap-2.5 text-pink-300 font-bold"><i class="fa-solid fa-mask text-pink-400 text-xs"></i> 🎭 Exclusive Hidden Impostor Mode</li>
-                            <li class="flex items-center gap-2.5 text-pink-300 font-bold"><i class="fa-solid fa-dice text-pink-400 text-xs"></i> 🎲 Chaos Mystery Class Systems</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-purple-400 text-xs"></i> Dynamic Post-Match Voting/Trial Interface</li>
+                        <ul class="text-slate-200 text-xs space-y-3 mb-8 font-medium">
+                            <li class="flex items-center gap-2.5 text-white font-bold"><i class="fa-solid fa-star text-pink-400"></i> Everything included in Pro License</li>
+                            <li class="flex items-center gap-2.5 text-pink-300"><i class="fa-solid fa-image text-pink-400"></i> Graphic PNG profile card generator (<code class="d-badge">/share</code>)</li>
+                            <li class="flex items-center gap-2.5 text-emerald-300"><i class="fa-solid fa-store text-emerald-400"></i> Arena Shop & Emerald Luxury custom themes</li>
+                            <li class="flex items-center gap-2.5 text-pink-300"><i class="fa-solid fa-mask text-pink-400"></i> Impostor Mode (<code class="d-badge">/impostor</code>)</li>
+                            <li class="flex items-center gap-2.5 text-pink-300"><i class="fa-solid fa-dice text-pink-400"></i> Mystery Class Arena (<code class="d-badge">/chaos</code>)</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> High-priority API bandwidth & priority support</li>
                         </ul>
                     </div>
 
-                    <a href="https://discord.gg/emgX63dqFc" target="_blank" class="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-emerald-500 via-purple-500 to-pink-500 hover:opacity-95 text-gray-950 py-4 rounded-xl font-black text-base shadow-xl shadow-emerald-950/20 transition transform hover:-translate-y-0.5 active:translate-y-0">
-                        <i class="fa-brands fa-discord text-lg"></i> Buy via Discord Ticket
+                    <a href="https://discord.gg/emgX63dqFc" target="_blank" class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-90 text-white font-bold py-3.5 rounded-xl text-xs text-center transition shadow-lg shadow-indigo-900/40">
+                        Order Premium License
                     </a>
                 </div>
-
             </div>
         </section>
 
-        <!-- FAQ -->
-        <section class="max-w-4xl mx-auto px-6 py-12 mb-16 border-t border-gray-900/60">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-black text-white tracking-tight">Frequently Asked Questions</h2>
-            </div>
-            <div class="space-y-4 text-left">
-                <div class="bg-gray-950/20 border border-gray-900 p-5 rounded-2xl shadow-md">
-                    <h4 class="font-bold text-white text-base mb-2"><i class="fa-solid fa-circle-question text-purple-400 text-xs mr-1.5"></i> Why this price for the Licenses?</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Our subscription matrices guarantee premium, uninterrupted service. It covers high-performance cloud hosting with a <strong class="text-purple-400">99.99% uptime framework</strong>, continuous stability updates to match Discord API changes, and <strong class="text-pink-400">permanent 24/7 technical staff support</strong>.
-                    </p>
+        <!-- Affiliate Program -->
+        <section class="max-w-5xl mx-auto px-6 pb-20">
+            <div class="glass-card p-6 sm:p-8 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
+                    <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">AFFILIATE REWARDS</span>
+                    <h3 class="text-xl font-bold text-white mt-1">Earn €10.00 cash per server recommendation</h3>
+                    <p class="text-slate-400 text-xs mt-1 max-w-xl">Recommend Metin2 Mix PRO to server owners in your network. Receive instant PayPal payment per verified installation.</p>
                 </div>
-                <div class="bg-gray-950/20 border border-gray-900 p-5 rounded-2xl shadow-md">
-                    <h4 class="font-bold text-white text-base mb-2"><i class="fa-solid fa-circle-question text-purple-400 text-xs mr-1.5"></i> How do I purchase a license?</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        All orders and deployments are processed securely through our <strong class="text-purple-400">Discord server</strong>. Join and open a ticket: we accept <strong class="text-blue-400">PayPal</strong>, <strong class="text-orange-400">Revolut</strong>, and Cryptocurrencies (<strong class="text-yellow-500">BTC / ETH / USDC / USDT on SOL</strong>).
-                    </p>
-                </div>
-                <div class="bg-gray-950/20 border border-gray-900 p-5 rounded-2xl shadow-md">
-                    <h4 class="font-bold text-white text-base mb-2"><i class="fa-solid fa-circle-question text-purple-400 text-xs mr-1.5"></i> How does the ranked matchmaking balance teams?</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Our engine uses a calibrated <strong class="text-amber-400">algorithmic MMR balancing system</strong>. When a lobby forms, it analyzes the live Elo rating of all 10 players to distribute them mathematically and ensure fair, competitive matches.
-                    </p>
-                </div>
-                <div class="bg-gray-950/20 border border-gray-900 p-5 rounded-2xl shadow-md">
-                    <h4 class="font-bold text-white text-base mb-2"><i class="fa-solid fa-circle-question text-purple-400 text-xs mr-1.5"></i> How fast is player voice migration handled?</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        It's instantaneous. As soon as teams form or a substitution executes, our pipeline batch-moves players simultaneously to avoid Discord API rate-limits.
-                    </p>
-                </div>
+                <a href="https://discord.gg/emgX63dqFc" target="_blank" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs whitespace-nowrap transition shadow-lg shadow-amber-950/20">
+                    Open Affiliate Ticket
+                </a>
             </div>
         </section>
     </main>
 
-    <footer class="text-center py-10 text-xs text-gray-600 border-t border-gray-950 max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <footer class="py-8 text-center text-xs text-slate-600 border-t border-white/[0.06] max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-3">
         <div>&copy; 2026 Metin2 Mix PRO. All rights reserved.</div>
-        <div class="text-gray-700">This service is not affiliated with Gameforge 4D GmbH or Webzen Inc.</div>
+        <div>Not affiliated with Gameforge 4D GmbH or Webzen Inc.</div>
     </footer>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const hoverCards = document.querySelectorAll('.glow-effect-hover');
-            hoverCards.forEach(card => {
-                card.addEventListener('mouseenter', () => card.classList.add('glow-effect'));
-                card.addEventListener('mouseleave', () => card.classList.remove('glow-effect'));
-            });
-
-            const counters = document.querySelectorAll('.count-up');
-            const animateCounter = (counter) => {
-                const target = parseFloat(counter.getAttribute('data-target'));
-                const decimals = parseInt(counter.getAttribute('data-decimals')) || 0;
-                const duration = 1500;
-                const startTime = performance.now();
-
-                const updateNumber = (currentTime) => {
-                    const elapsedTime = currentTime - startTime;
-                    if (elapsedTime >= duration) {
-                        counter.textContent = target.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-                    } else {
-                        const progress = elapsedTime / duration;
-                        const easeOutProgress = 1 - Math.pow(1 - progress, 3);
-                        const currentValue = easeOutProgress * target;
-
-                        counter.textContent = currentValue.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-                        requestAnimationFrame(updateNumber);
-                    }
-                };
-                requestAnimationFrame(updateNumber);
-            };
-
-            const observerOptions = { threshold: 0.2 };
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const element = entry.target;
-                        animateCounter(element);
-                        observer.unobserve(element);
-                    }
-                });
-            }, observerOptions);
-
-            counters.forEach(counter => observer.observe(counter));
-        });
-    </script>
 
 </body>
 </html>
