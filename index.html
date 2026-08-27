@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth bg-[#06080F]">
+<html lang="en" class="scroll-smooth bg-[#05070E]">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpeg" href="logo.jpg">
-    <title>Metin2 Mix PRO — The Esports Matchmaking Engine for Private Servers</title>
+    <title>Metin2 Mix PRO — Next-Gen Esports Matchmaking & Ranked Engine</title>
 
-    <meta name="description" content="Automated 5v5 mixes, MMR-balanced ranked queues, mirrored captain drafts, and instant Discord voice routing for Metin2 communities.">
-    <meta property="og:title" content="⚔️ Metin2 Mix PRO — Matchmaking Engine">
-    <meta property="og:description" content="Instant 5v5 lobbies, fair MMR matchmaking, captain draft system, and sub hot-swapping.">
+    <meta name="description" content="Custom matchmaking queues via interactive configuration panels, mathematical MMR balancing, mirrored captain drafts, live Discord voice dispatch, and dynamic PNG profile card rendering for Metin2 communities.">
+    <meta property="og:title" content="⚔️ Metin2 Mix PRO — Matchmaking & Ranked Engine">
+    <meta property="og:description" content="Custom squad sizes, fair MMR balancing, voice dispatch, and live cosmetic profile cards.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://metinmixpro.xyz">
     <meta property="og:image" content="https://metinmixpro.xyz/logo.jpg">
@@ -17,7 +17,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -33,6 +33,7 @@
                     colors: {
                         brand: {
                             50: '#EEF2FF',
+                            400: '#818CF8',
                             500: '#6366F1',
                             600: '#4F46E5',
                             700: '#4338CA',
@@ -45,79 +46,96 @@
 
     <style>
         .grid-pattern {
-            background-size: 40px 40px;
+            background-size: 36px 36px;
             background-image:
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
-            -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
+                linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 70%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 70%, transparent 100%);
         }
 
         .glass-card {
-            background: linear-gradient(180deg, rgba(17, 24, 39, 0.6) 0%, rgba(10, 15, 29, 0.7) 100%);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: linear-gradient(180deg, rgba(17, 24, 39, 0.75) 0%, rgba(9, 14, 26, 0.85) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .glass-card-hover {
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .glass-card-hover:hover {
-            transform: translateY(-2px);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 30px -10px rgba(99, 102, 241, 0.15);
+            transform: translateY(-3px);
+            border-color: rgba(99, 102, 241, 0.35);
+            box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8), 0 0 35px -8px rgba(99, 102, 241, 0.2);
         }
 
         .d-mention {
-            background-color: rgba(99, 102, 241, 0.18);
+            background-color: rgba(99, 102, 241, 0.2);
             color: #C7D2FE;
-            padding: 1px 6px;
+            padding: 1px 7px;
             border-radius: 4px;
             font-weight: 600;
         }
 
         .d-badge {
-            background-color: #0F172A;
+            background-color: #0A0F1D;
             color: #E2E8F0;
-            padding: 1px 6px;
+            padding: 2px 7px;
             border-radius: 4px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 11px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .cls-icon {
-            width: 15px;
-            height: 15px;
-            display: inline-block;
-            vertical-align: -2px;
-            object-fit: contain;
+        .neon-glow {
+            box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.35);
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.05); }
+        }
+
+        .ambient-orb {
+            animation: pulse-slow 8s ease-in-out infinite;
+        }
+
+        .theme-btn.active {
+            border-color: #6366F1;
+            background-color: rgba(99, 102, 241, 0.25);
+            color: #FFFFFF;
+        }
+
+        .cmd-tab.active {
+            background-color: #4F46E5;
+            color: #FFFFFF;
         }
     </style>
 </head>
 
-<body class="text-slate-300 font-sans antialiased bg-[#06080F] selection:bg-indigo-500/30 selection:text-indigo-200">
+<body class="text-slate-300 font-sans antialiased bg-[#05070E] selection:bg-indigo-500/30 selection:text-indigo-200">
 
-    <!-- Ambient Glow Top -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[480px] pointer-events-none -z-10 overflow-hidden">
-        <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[640px] h-[360px] bg-gradient-to-tr from-indigo-600/20 via-purple-600/20 to-pink-600/10 blur-[130px] rounded-full"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[550px] pointer-events-none -z-10 overflow-hidden">
+        <div class="ambient-orb absolute -top-40 left-1/2 -translate-x-1/2 w-[750px] h-[440px] bg-gradient-to-tr from-indigo-600/25 via-purple-600/25 to-pink-600/15 blur-[140px] rounded-full"></div>
     </div>
 
     <!-- Header Navigation -->
-    <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#06080F]/75 border-b border-white/[0.06]">
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#05070E]/85 border-b border-white/[0.06]">
         <nav class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
-            <div class="flex items-center gap-3">
+            <a href="#" class="flex items-center gap-3">
                 <img src="logo.jpg" alt="Logo" class="w-8 h-8 rounded-lg object-cover ring-1 ring-white/10 shadow-sm">
                 <span class="text-base font-extrabold tracking-tight text-white flex items-center gap-1.5">
-                    Metin2 Mix <span class="text-indigo-400 bg-indigo-500/10 px-1.5 py-0.5 rounded text-xs font-mono">PRO</span>
+                    Metin2 Mix <span class="text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-1.5 py-0.5 rounded text-xs font-mono">PRO</span>
                 </span>
-            </div>
+            </a>
 
             <div class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <a href="#customization" class="hover:text-white transition">Full Flexibility</a>
+                <a href="#mmr-engine" class="hover:text-white transition">MMR Mathematics</a>
                 <a href="#flow" class="hover:text-white transition">Match Engine</a>
-                <a href="#ranked" class="hover:text-white transition">Ranked & Elo</a>
-                <a href="#features" class="hover:text-white transition">Modes & Tools</a>
-                <a href="#reviews" class="hover:text-white transition">Reviews</a>
+                <a href="#commands" class="hover:text-white transition">Commands</a>
+                <a href="#ranked" class="hover:text-white transition">Card Preview</a>
                 <a href="#pricing" class="hover:text-white transition">Pricing</a>
             </div>
 
@@ -130,101 +148,213 @@
     </header>
 
     <main class="relative">
-        <!-- Background Grid Pattern -->
         <div class="absolute inset-0 grid-pattern pointer-events-none -z-10"></div>
 
         <!-- Hero Section -->
         <section class="max-w-5xl mx-auto px-6 pt-20 md:pt-28 pb-20 text-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-slate-300 text-xs font-medium mb-8">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                <span>Automated 5v5 Mix & Competitive Ranked Engine</span>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-slate-300 text-xs font-medium mb-8">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Custom Queue Sizes, Mathematical MMR Algorithm & Live Discord Card Rendering</span>
             </div>
 
             <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight mb-6 leading-[1.06]">
-                Stop making mixes by hand.<br>
+                The complete PvP engine.<br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">
-                    Instant lobbies, zero queue lag.
+                    Your rules. Any size. Zero lag.
                 </span>
             </h1>
 
             <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Players select their class with one click. The bot balances teams with MMR, picks captains, routes voice rooms instantly, tracks Elo ratings, and handles AFK dodge penalties.
+                Deploy fully customizable queues on your Discord via an intuitive interactive panel. Configure team sizes, class quotas, ready checks, and Elo logic with live ratings, MVP bonuses, and high-res player profile cards.
             </p>
 
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-3.5 mb-16">
-                <a href="#pricing" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white px-7 py-3.5 rounded-xl font-bold text-sm shadow-xl shadow-indigo-950/60 transition flex items-center justify-center gap-2">
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
+                <a href="#pricing" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-xl font-bold text-sm shadow-xl shadow-indigo-950/60 transition flex items-center justify-center gap-2">
                     Deploy on Your Server (€4.99) <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>
-                <a href="#flow" class="w-full sm:w-auto bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-slate-300 px-7 py-3.5 rounded-xl font-semibold text-sm transition">
-                    Inspect Match Lifecycle
+                <a href="#commands" class="w-full sm:w-auto bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-slate-300 px-8 py-4 rounded-xl font-semibold text-sm transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-terminal text-indigo-400"></i> Explore All Commands
                 </a>
             </div>
 
-            <!-- Fast Metrics Bar -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-2xl glass-card max-w-4xl mx-auto text-left">
-                <div class="p-3">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-2xl glass-card max-w-4xl mx-auto text-left shadow-2xl">
+                <div class="p-3.5">
                     <div class="text-xl sm:text-2xl font-black text-white font-mono">&lt; 1 sec</div>
-                    <div class="text-xs text-slate-400 mt-0.5">Voice dispatch time</div>
+                    <div class="text-xs text-slate-400 mt-0.5 font-medium">Cadenced voice dispatch</div>
                 </div>
-                <div class="p-3 border-l border-white/[0.06]">
-                    <div class="text-xl sm:text-2xl font-black text-indigo-400 font-mono">100% Fair</div>
-                    <div class="text-xs text-slate-400 mt-0.5">Algorithmic MMR parity</div>
+                <div class="p-3.5 border-l border-white/[0.06]">
+                    <div class="text-xl sm:text-2xl font-black text-indigo-400 font-mono">Any Size</div>
+                    <div class="text-xs text-slate-400 mt-0.5 font-medium">Interactive Panel UI</div>
                 </div>
-                <div class="p-3 border-l border-white/[0.06]">
-                    <div class="text-xl sm:text-2xl font-black text-emerald-400 font-mono">Live /sub</div>
-                    <div class="text-xs text-slate-400 mt-0.5">Emergency hot-swaps</div>
+                <div class="p-3.5 border-l border-white/[0.06]">
+                    <div class="text-xl sm:text-2xl font-black text-emerald-400 font-mono">Elo Math</div>
+                    <div class="text-xs text-slate-400 mt-0.5 font-medium">Dynamic parity & MVP</div>
                 </div>
-                <div class="p-3 border-l border-white/[0.06]">
+                <div class="p-3.5 border-l border-white/[0.06]">
                     <div class="text-xl sm:text-2xl font-black text-amber-400 font-mono">Anti-AFK</div>
-                    <div class="text-xs text-slate-400 mt-0.5">Auto-jail dodge penalties</div>
+                    <div class="text-xs text-slate-400 mt-0.5 font-medium">Auto-jail dodge penalties</div>
                 </div>
             </div>
         </section>
 
-        <!-- Match Lifecycle -->
+        <!-- Deep Dive: MMR Mathematics & Algorithm Section -->
+        <section id="mmr-engine" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06]">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-widest block mb-2">Competitive Engine</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">The Mathematical MMR Architecture</h2>
+                <p class="text-slate-400 mt-2 text-sm sm:text-base">A true esports Elo algorithm designed to reward individual performance, team leadership, and class mastery.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Mathematical breakdown -->
+                <div class="lg:col-span-7 glass-card p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-calculator text-indigo-400"></i> Expected Outcome & K-Factor Scaling
+                        </h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            The system computes expected scores based on the opponent squad's average MMR versus the player's personal rating:
+                        </p>
+
+                        <div class="bg-[#090D1A] p-4 rounded-xl border border-white/[0.06] font-mono text-xs text-indigo-300 mb-6 space-y-2">
+                            <div>Expected_Score = 1 / (1 + 10^((Opponent_Avg_MMR - Current_MMR) / 400))</div>
+                            <div class="text-slate-400 text-[11px] pt-2 border-t border-white/[0.06]">
+                                ↳ <strong>K-Factor 40</strong> for newcomers (&lt; 15 games) for fast calibration.<br>
+                                ↳ <strong>K-Factor 28</strong> for seasoned veterans for rating stability.
+                            </div>
+                        </div>
+
+                        <h4 class="text-sm font-bold text-white mb-3">Objective & Role Performance Modifiers</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                            <div class="bg-emerald-950/20 border border-emerald-500/20 p-3 rounded-xl">
+                                <span class="font-bold text-emerald-400 block mb-1">👑 Captain Bonus</span>
+                                <p class="text-slate-400 text-[11px]">Winning captains receive an extra <strong>+2 MMR bonus</strong> for leading squad draft calls.</p>
+                            </div>
+                            <div class="bg-amber-950/20 border border-amber-500/20 p-3 rounded-xl">
+                                <span class="font-bold text-amber-400 block mb-1">🏆 Elected MVP Bonus</span>
+                                <p class="text-slate-400 text-[11px]">Players voted MVP by their peers earn <strong>+5 MMR bonus</strong> on match victory.</p>
+                            </div>
+                            <div class="bg-blue-950/20 border border-blue-500/20 p-3 rounded-xl">
+                                <span class="font-bold text-blue-400 block mb-1">🪙 Arena Coin Rewards</span>
+                                <p class="text-slate-400 text-[11px]"><strong>+15 Coins</strong> per victory / <strong>+7 Coins</strong> per defeat to spend in <code class="d-badge text-[10px]">/shop</code>.</p>
+                            </div>
+                            <div class="bg-rose-950/20 border border-rose-500/20 p-3 rounded-xl">
+                                <span class="font-bold text-rose-400 block mb-1">🛡️ Loss Clamping</span>
+                                <p class="text-slate-400 text-[11px]">Strict delta bounds prevent massive rating crashes (-10 min, -38 max).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs text-slate-400 font-mono">
+                        <span>Win Delta Range: <strong class="text-emerald-400">+12 to +45 MMR</strong></span>
+                        <span>Loss Delta Range: <strong class="text-rose-400">-10 to -38 MMR</strong></span>
+                    </div>
+                </div>
+
+                <!-- Tier Divisions Ladder -->
+                <div class="lg:col-span-5 glass-card p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-ranking-star text-amber-400"></i> Tier Divisions & Roles
+                        </h3>
+                        <p class="text-slate-400 text-xs mb-5">Automatic Discord rank role sync upon promotion:</p>
+
+                        <div class="space-y-2 text-xs font-mono">
+                            <div class="flex justify-between items-center bg-[#0B101E] p-2.5 rounded-xl border border-rose-500/30">
+                                <span class="text-rose-400 font-bold">👑 MASTER</span>
+                                <span class="d-badge text-rose-300">2200+ MMR</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-[#0B101E] p-2.5 rounded-xl border border-cyan-500/30">
+                                <span class="text-cyan-400 font-bold">💎 DIAMOND</span>
+                                <span class="d-badge text-cyan-300">2000+ MMR</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-[#0B101E] p-2.5 rounded-xl border border-emerald-500/30">
+                                <span class="text-emerald-400 font-bold">🟢 EMERALD</span>
+                                <span class="d-badge text-emerald-300">1800+ MMR</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-[#0B101E] p-2.5 rounded-xl border border-sky-500/30">
+                                <span class="text-sky-400 font-bold">💠 PLATINUM</span>
+                                <span class="d-badge text-sky-300">1600+ MMR</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-[#0B101E] p-2.5 rounded-xl border border-amber-500/30">
+                                <span class="text-amber-400 font-bold">🥇 GOLD</span>
+                                <span class="d-badge text-amber-300">1400+ MMR</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-[#0B101E] p-2.5 rounded-xl border border-slate-400/30">
+                                <span class="text-slate-300 font-bold">🥈 SILVER</span>
+                                <span class="d-badge text-slate-300">1200+ MMR</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-[#0B101E] p-2.5 rounded-xl border border-amber-800/30">
+                                <span class="text-amber-600 font-bold">🥉 BRONZE</span>
+                                <span class="d-badge text-amber-600">1100+ MMR</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-[#0B101E] p-2.5 rounded-xl border border-slate-600/30">
+                                <span class="text-slate-400 font-bold">⚙️ IRON</span>
+                                <span class="d-badge text-slate-400">1000 MMR</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Match Lifecycle with Interactive Configuration Panel -->
         <section id="flow" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06]">
             <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-widest block mb-2">Automated Execution</span>
                 <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">The 3-Step Match Pipeline</h2>
-                <p class="text-slate-400 mt-2 text-sm sm:text-base">Designed for zero admin overhead: queues launch, fill, sort, and resolve automatically.</p>
+                <p class="text-slate-400 mt-2 text-sm sm:text-base">Zero manual administration: queues launch, fill, sort, and resolve automatically.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-                <!-- Step 1 -->
+                <!-- Step 1 : Interactive Panel Replica -->
                 <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-widest">Phase 01 • Queue</span>
-                            <span class="d-badge text-[10px]">/mix & /ranked</span>
+                            <span class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-widest">Phase 01 • Configuration</span>
+                            <span class="d-badge text-[10px]">Ephemeral Panel</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2">Class-locked registration</h3>
+                        <h3 class="text-lg font-bold text-white mb-2">Interactive configuration panel</h3>
                         <p class="text-slate-400 text-xs leading-relaxed mb-5">
-                            Fighters tap their class button to enter the pool. Enforces exact class limits (e.g. 1 per class max per side).
+                            The host triggers <code class="text-indigo-300 font-mono">/mix</code> or <code class="text-indigo-300 font-mono">/ranked</code> to open an interactive panel with live button controls for size, classes, and ready-checks.
                         </p>
 
-                        <div class="bg-[#0B101E] p-4 rounded-xl border border-white/[0.06] space-y-2.5 text-xs">
-                            <div class="font-bold text-white flex justify-between items-center text-[11px]">
-                                <span>🏆 BODY RANKED • QUEUE</span>
-                                <span class="text-emerald-400 font-mono">10/10 [FULL]</span>
+                        <!-- Discord Panel Mockup -->
+                        <div class="bg-[#0B101E] p-4 rounded-xl border border-white/[0.06] space-y-3 text-xs shadow-inner">
+                            <div class="border-l-2 border-rose-500 pl-3 py-1 space-y-1">
+                                <div class="text-[10px] text-slate-400 flex items-center gap-1.5 font-semibold">
+                                    <span class="w-2 h-2 rounded-full bg-indigo-400"></span> Configuration by Host
+                                </div>
+                                <div class="font-bold text-white text-xs flex items-center gap-1">
+                                    ⚙️ Mix Configuration Panel
+                                </div>
+                                <div class="text-[11px] text-slate-300 space-y-0.5 pt-1">
+                                    <p>Mode : <span class="text-rose-400 font-semibold">🎲 Automatic Random Mix</span></p>
+                                    <p>Type : <strong class="text-white">Body</strong> | Size : <strong class="text-emerald-400">5v5</strong></p>
+                                    <p>Ready Check : <span class="text-rose-400 font-mono text-[10px]">DISABLED</span></p>
+                                </div>
+                                <div class="pt-2 text-[10px] text-slate-300 space-y-0.5 border-t border-white/[0.05]">
+                                    <div class="flex justify-between"><span>🥷 Warrior: <strong>2</strong></span><span>🔮 Sura: <strong>1</strong></span></div>
+                                    <div class="flex justify-between"><span>🗡️ Ninja: <strong>1</strong></span><span>🐉 Dragon: <strong>1</strong></span></div>
+                                    <div class="flex justify-between"><span>🌿 Healer: <strong>0</strong></span><span>🐺 Lycan: <strong>OFF</strong></span></div>
+                                </div>
                             </div>
-                            <div class="font-mono text-emerald-400 text-[10px] tracking-wider">▰▰▰▰▰▰▰▰▰▰ 100%</div>
-                            <div class="space-y-1.5 pt-1.5 border-t border-white/[0.06] text-[11px]">
-                                <div class="flex justify-between text-slate-300">
-                                    <span><img src="emojis/warrior.png" class="cls-icon" alt=""> Warrior</span>
-                                    <span class="text-slate-400"><span class="d-mention">@Volg</span>, <span class="d-mention">@IronWarrior</span></span>
-                                </div>
-                                <div class="flex justify-between text-slate-300">
-                                    <span><img src="emojis/sura.png" class="cls-icon" alt=""> Sura</span>
-                                    <span class="text-slate-400"><span class="d-mention">@DarkTemplar</span>, <span class="d-mention">@FrostMage</span></span>
-                                </div>
-                                <div class="flex justify-between text-slate-300">
-                                    <span><img src="emojis/ninja.png" class="cls-icon" alt=""> Ninja</span>
-                                    <span class="text-slate-400"><span class="d-mention">@ShadowBlade</span>, <span class="d-mention">@GhostArcher</span></span>
-                                </div>
+
+                            <!-- Panel Buttons Simulation -->
+                            <div class="grid grid-cols-2 gap-1.5 pt-1 text-[10px] font-bold font-mono">
+                                <span class="bg-[#1E293B] text-slate-200 text-center py-1 rounded border border-white/10">BODY / MENTAL</span>
+                                <span class="bg-[#1E293B] text-slate-200 text-center py-1 rounded border border-white/10">🐺 TOGGLE LYCAN</span>
+                                <span class="bg-rose-900/60 text-rose-200 text-center py-1 rounded border border-rose-500/30">READY CHECK: OFF</span>
+                                <span class="bg-indigo-600 text-white text-center py-1 rounded shadow">🚀 LAUNCH</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-1.5 text-[10px] font-bold font-mono">
+                                <span class="bg-rose-900/50 text-rose-300 text-center py-0.5 rounded">Size -</span>
+                                <span class="bg-emerald-900/50 text-emerald-300 text-center py-0.5 rounded">Size +</span>
                             </div>
                         </div>
                     </div>
                     <div class="mt-5 pt-3 border-t border-white/[0.06] text-[11px] text-slate-400">
-                        ⚡ Optional voice <strong>Ready-Check</strong> with automated temporary jail on timeout.
+                        ⚡ Full control over each class quota individually (<code class="text-indigo-300 font-mono">+ / -</code>).
                     </div>
                 </div>
 
@@ -235,25 +365,23 @@
                             <span class="text-xs font-mono font-bold text-purple-400 uppercase tracking-widest">Phase 02 • Routing</span>
                             <span class="d-badge text-[10px]">Instant Movement</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2">Team generation & voice dispatch</h3>
+                        <h3 class="text-lg font-bold text-white mb-2">MMR balancing & dispatch</h3>
                         <p class="text-slate-400 text-xs leading-relaxed mb-5">
-                            Rosters are sorted identically class by class with random captains assigned. All 10 players are moved to Blue and Red voice channels simultaneously.
+                            Rosters are sorted class by class with random captains assigned and players dispatched without Discord rate-limits.
                         </p>
 
-                        <div class="bg-[#0B101E] p-4 rounded-xl border border-white/[0.06] space-y-2 text-xs">
+                        <div class="bg-[#0B101E] p-4 rounded-xl border border-white/[0.06] space-y-2 text-xs shadow-inner">
                             <div class="font-bold text-white text-[11px] mb-1">⚔️ MATCH ACTIVE • ROSTERS LOCKED</div>
                             <div class="grid grid-cols-2 gap-2 text-[10px]">
                                 <div class="bg-blue-950/30 border border-blue-500/20 p-2 rounded-lg">
-                                    <span class="text-blue-300 font-bold block mb-1">🔵 BLUE (Avg: 1054)</span>
-                                    <p><img src="emojis/warrior.png" class="cls-icon" alt=""> <span class="d-mention">@Volg</span> 👑</p>
-                                    <p class="mt-1"><img src="emojis/sura.png" class="cls-icon" alt=""> <span class="d-mention">@DarkTemplar</span></p>
-                                    <p class="mt-1"><img src="emojis/ninja.png" class="cls-icon" alt=""> <span class="d-mention">@ShadowBlade</span></p>
+                                    <span class="text-blue-300 font-bold block mb-1">🔵 BLUE (Avg: 1142)</span>
+                                    <p>⚔️ <span class="d-mention">@Volg</span> 👑</p>
+                                    <p class="mt-1">🔮 <span class="d-mention">@Dark</span></p>
                                 </div>
                                 <div class="bg-red-950/30 border border-red-500/20 p-2 rounded-lg">
-                                    <span class="text-red-300 font-bold block mb-1">🔴 RED (Avg: 1046)</span>
-                                    <p><img src="emojis/warrior.png" class="cls-icon" alt=""> <span class="d-mention">@BloodSeeker</span> 👑</p>
-                                    <p class="mt-1"><img src="emojis/sura.png" class="cls-icon" alt=""> <span class="d-mention">@FrostMage</span></p>
-                                    <p class="mt-1"><img src="emojis/ninja.png" class="cls-icon" alt=""> <span class="d-mention">@GhostArcher</span></p>
+                                    <span class="text-red-300 font-bold block mb-1">🔴 RED (Avg: 1138)</span>
+                                    <p>⚔️ <span class="d-mention">@Blood</span> 👑</p>
+                                    <p class="mt-1">🔮 <span class="d-mention">@Frost</span></p>
                                 </div>
                             </div>
                         </div>
@@ -270,17 +398,16 @@
                             <span class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">Phase 03 • Outcome</span>
                             <span class="d-badge text-[10px]">Leaderboard & MVP</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2">Live rating calculations & MVP</h3>
+                        <h3 class="text-lg font-bold text-white mb-2">Live ratings & MVP voting</h3>
                         <p class="text-slate-400 text-xs leading-relaxed mb-5">
-                            One click settles the match. Rating calculations apply bonuses for winning captains and elected MVPs, moving fighters back to the waiting room.
+                            One click settles the match, updates the live standings channel, rewards MVP bonuses, and resets the lobby.
                         </p>
 
-                        <div class="bg-[#0B101E] p-4 rounded-xl border border-white/[0.06] space-y-2 text-xs">
+                        <div class="bg-[#0B101E] p-4 rounded-xl border border-white/[0.06] space-y-2 text-xs shadow-inner">
                             <div class="font-bold text-emerald-400 text-[11px]">🏁 BLUE VICTORY (+26 MMR)</div>
                             <div class="space-y-1.5 text-[10px] text-slate-300 pt-1">
                                 <p>&gt; <span class="d-mention">@Volg</span> • <span class="d-badge">1081 ➔ 1107</span> <span class="text-emerald-400 font-bold">(+26)</span> 👑 🏆</p>
-                                <p>&gt; <span class="d-mention">@DarkTemplar</span> • <span class="d-badge">1049 ➔ 1078</span> <span class="text-emerald-400 font-bold">(+29)</span></p>
-                                <p class="text-slate-400">&gt; <span class="d-mention">@BloodSeeker</span> • <span class="d-badge">1038 ➔ 1020</span> <span class="text-rose-400 font-bold">(-18)</span></p>
+                                <p class="text-slate-400">&gt; <span class="d-mention">@Blood</span> • <span class="d-badge">1038 ➔ 1020</span> <span class="text-rose-400 font-bold">(-18)</span></p>
                             </div>
                             <div class="pt-1.5 border-t border-white/[0.06] text-[10px] text-amber-300">
                                 🏆 <span class="d-mention">@Volg</span> voted MVP (+5 Elo bonus)
@@ -294,167 +421,229 @@
             </div>
         </section>
 
-        <!-- Ranked Engine & Profiles -->
-        <section id="ranked" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06]">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-4">
-                        <i class="fa-solid fa-trophy text-[10px]"></i> Competitive League Architecture
+        <!-- Command Documentation Matrix Section -->
+        <section id="commands" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06]">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-mono font-bold text-pink-400 uppercase tracking-widest block mb-2">Command Matrix</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Full Command Ecosystem</h2>
+                <p class="text-slate-400 mt-2 text-sm sm:text-base">Intuitive slash commands for players, captains, and server moderators.</p>
+            </div>
+
+            <!-- Command Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button onclick="showCmdCategory('matchmaking')" id="tab-matchmaking" class="cmd-tab active px-4 py-2 rounded-xl text-xs font-bold transition glass-card">
+                    ⚔️ Matchmaking & Mix
+                </button>
+                <button onclick="showCmdCategory('competitive')" id="tab-competitive" class="cmd-tab px-4 py-2 rounded-xl text-xs font-bold transition glass-card">
+                    🏆 Ranked & Profiles
+                </button>
+                <button onclick="showCmdCategory('economy')" id="tab-economy" class="cmd-tab px-4 py-2 rounded-xl text-xs font-bold transition glass-card">
+                    🪙 Shop & Economy
+                </button>
+                <button onclick="showCmdCategory('modes')" id="tab-modes" class="cmd-tab px-4 py-2 rounded-xl text-xs font-bold transition glass-card">
+                    🎲 Mini-Games & Modes
+                </button>
+                <button onclick="showCmdCategory('staff')" id="tab-staff" class="cmd-tab px-4 py-2 rounded-xl text-xs font-bold transition glass-card">
+                    🛡️ Admin & Sanctions
+                </button>
+            </div>
+
+            <!-- Command Tables -->
+            <div class="glass-card rounded-2xl p-6 overflow-x-auto shadow-2xl">
+                <!-- 1. Matchmaking Category -->
+                <div id="cat-matchmaking" class="cmd-category space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-indigo-400 text-sm">/mix & /ranked</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">
+                            Opens the interactive <strong>Mix Configuration Panel</strong>: format adjustment (<code class="d-badge text-[10px]">Size - / +</code>), individual class quotas (<code class="d-badge text-[10px]">+ / -</code>), <code class="d-badge text-[10px]">Body / Mental</code>, <code class="d-badge text-[10px]">Toggle Lycan</code> and <code class="d-badge text-[10px]">Ready Check</code>.
+                        </div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge">Host / Staff</span></div>
                     </div>
-                    <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight mb-5">
-                        Real-time standings, profiles, and tournament cycles.
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-indigo-400 text-sm">/sub @old @new</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">Hot-swaps an AFK or disconnected player mid-match and moves the substitute into the vocal channel.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge">Captains / Staff</span></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-indigo-400 text-sm">/cancel</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">Aborts the active match without MMR penalty and returns all players to the waiting room.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge">Staff Only</span></div>
+                    </div>
+                </div>
+
+                <!-- 2. Competitive Category -->
+                <div id="cat-competitive" class="cmd-category space-y-4 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-amber-400 text-sm">/profile [@member]</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">Displays competitive card embed with live MMR, Peak score, Winrate bar, streak, and unlocked badges.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge">Public</span></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-pink-400 text-sm">/share [theme]</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">💎 Generates a high-res downloadable PNG profile card asset rendered via Pillow with active themes.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge text-pink-300">Premium</span></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-indigo-400 text-sm">/leaderboard</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">Posts or refreshes the live competitive leaderboard showing Top 20 players, winrates, and main classes.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge">Public</span></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-indigo-400 text-sm">/compare @user1 @user2</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">Head-to-head comparison of two players with win probabilities based on the Elo formula.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge">Public</span></div>
+                    </div>
+                </div>
+
+                <!-- 3. Economy Category -->
+                <div id="cat-economy" class="cmd-category space-y-4 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-emerald-400 text-sm">/shop</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">Opens the interactive arena cosmetics boutique to purchase custom /share themes and prestige badges.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge">Public</span></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-emerald-400 text-sm">/daily</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">Claims daily reward (+50 Coins base, +100 Coins for Nitro Boosters). 24-hour cooldown.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge">Public</span></div>
+                    </div>
+                </div>
+
+                <!-- 4. Mini-Games Category -->
+                <div id="cat-modes" class="cmd-category space-y-4 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-amber-400 text-sm">/dice @rival [bet]</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">High-stakes 1-100 casino dice challenge. The winner takes the pot with auto-re-roll on ties.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge">Public</span></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-pink-400 text-sm">/impostor</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">💎 Spawns a secret saboteur match. Traitors get DM instructions to secretly throw the match.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge text-pink-300">Premium</span></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-pink-400 text-sm">/chaos</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">💎 Randomizes classes for all players right before match start for chaotic fun lobbies.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge text-pink-300">Premium</span></div>
+                    </div>
+                </div>
+
+                <!-- 5. Staff Category -->
+                <div id="cat-staff" class="cmd-category space-y-4 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-rose-400 text-sm">/jail @member [hours] [reason]</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">Bans a toxic or dodging player from joining any queue. Logs entry to sanctions history.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge text-rose-400">Admin</span></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-rose-400 text-sm">/season end</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">Closes current competitive season, archives top podium players, and executes soft MMR reset.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge text-rose-400">Admin</span></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] items-center">
+                        <div class="md:col-span-3 font-mono font-bold text-indigo-400 text-sm">/setup</div>
+                        <div class="md:col-span-6 text-xs text-slate-300">Automated configuration wizard for voice channels, waiting rooms, and log feeds.</div>
+                        <div class="md:col-span-3 text-right"><span class="d-badge text-indigo-400">Admin</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ranked Engine & Live Pillow Card Preview -->
+        <section id="ranked" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06]">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-4">
+                        <i class="fa-solid fa-palette text-[10px]"></i> Interactive Theme Tester
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight mb-5 leading-tight">
+                        Live Pillow Card Rendering (/share)
                     </h2>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        Keep players engaged through automated ranking leagues. The system tracks match histories, winstreaks, class winrates, and awards seasonal titles (<code class="d-badge text-amber-300">CHAMPION: S1</code>).
+                        Click the theme buttons below to preview how cards and badges are rendered in high resolution when players execute <code class="text-indigo-300 font-mono">/share</code> on your server.
                     </p>
 
-                    <div class="space-y-4 text-xs sm:text-sm">
-                        <div class="flex items-start gap-3">
-                            <div class="w-6 h-6 rounded-md bg-indigo-500/10 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
-                                <i class="fa-solid fa-chart-line text-xs"></i>
-                            </div>
-                            <div>
-                                <strong class="text-white">Permanent Live Leaderboard:</strong> Auto-updating embed synced live to your discord standings channel.
-                            </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-8">
+                        <button onclick="switchTheme('developer')" id="btn-developer" class="theme-btn active p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-bold text-left transition hover:border-amber-500">
+                            👑 Developer Gold
+                        </button>
+                        <button onclick="switchTheme('beta')" id="btn-beta" class="theme-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-bold text-left transition hover:border-slate-300">
+                            ⭐ Beta Silver
+                        </button>
+                        <button onclick="switchTheme('demon_tower')" id="btn-demon_tower" class="theme-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-bold text-left transition hover:border-purple-500">
+                            💀 Demon Tower
+                        </button>
+                        <button onclick="switchTheme('emerald_luxury')" id="btn-emerald_luxury" class="theme-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-bold text-left transition hover:border-emerald-500">
+                            🟢 Emerald Luxury
+                        </button>
+                        <button onclick="switchTheme('inferno')" id="btn-inferno" class="theme-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-bold text-left transition hover:border-orange-500">
+                            🔥 Inferno
+                        </button>
+                        <button onclick="switchTheme('ice_land')" id="btn-ice_land" class="theme-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-bold text-left transition hover:border-cyan-500">
+                            ❄️ Mount Sohan
+                        </button>
+                    </div>
+
+                    <div class="space-y-3 text-xs text-slate-300">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check text-indigo-400"></i> Automatic avatar aspect ratio preservation (no stretching).
                         </div>
-                        <div class="flex items-start gap-3">
-                            <div class="w-6 h-6 rounded-md bg-indigo-500/10 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
-                                <i class="fa-solid fa-id-card text-xs"></i>
-                            </div>
-                            <div>
-                                <strong class="text-white">Player Profiles (<code class="text-indigo-300 font-mono">/profile</code>):</strong> Complete breakdown of ratings, peak MMR, winrates, and main class.
-                            </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check text-indigo-400"></i> Dynamic status badges: Developer, Beta-Tester, Crésus, Warlord.
                         </div>
-                        <div class="flex items-start gap-3">
-                            <div class="w-6 h-6 rounded-md bg-indigo-500/10 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
-                                <i class="fa-solid fa-arrows-split-up-and-left text-xs"></i>
-                            </div>
-                            <div>
-                                <strong class="text-white">Head-to-Head Confrontation (<code class="text-indigo-300 font-mono">/compare</code>):</strong> Compare two rivals with win probability analysis.
-                            </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check text-indigo-400"></i> Downloadable PNG generated in seconds inside Discord channels.
                         </div>
                     </div>
                 </div>
 
-                <!-- Showcase Profile Card -->
-                <div class="glass-card p-6 rounded-2xl shadow-2xl">
-                    <div class="bg-[#0B101E] p-5 rounded-xl border border-white/[0.06] space-y-4 text-xs">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="font-black text-white text-sm">👤 VOLG • COMPETITIVE PROFILE</h3>
-                                <p class="text-slate-400 mt-1">🏆 Tier: <span class="d-badge text-amber-300">DIAMOND IMMORTAL</span> (2312 MMR)</p>
-                                <p class="text-slate-400 mt-1 flex gap-1.5">
-                                    <span class="bg-blue-500/10 text-blue-300 px-1.5 py-0.5 rounded text-[10px] font-bold">STAFF</span>
-                                    <span class="bg-amber-500/10 text-amber-300 px-1.5 py-0.5 rounded text-[10px] font-bold">CHAMPION: S2</span>
-                                </p>
+                <div class="lg:col-span-6">
+                    <div class="relative glass-card p-6 sm:p-7 rounded-3xl border border-indigo-500/30 neon-glow">
+                        <div id="card-preview" class="p-5 rounded-2xl border-2 space-y-4 text-xs shadow-2xl relative overflow-hidden transition-all duration-300 bg-[#261C08] border-[#FBBF24]">
+                            <div id="card-inner-border" class="absolute inset-1.5 rounded-xl border border-[#B45309] pointer-events-none"></div>
+
+                            <div id="card-header" class="bg-[#37280A] border border-[#F59E0B] py-2.5 px-4 rounded-xl text-center">
+                                <h3 id="card-title" class="font-black text-[#FEF08A] text-sm tracking-wider">VOLG • COMPETITIVE PROFILE</h3>
                             </div>
-                            <img src="logo.jpg" alt="Avatar" class="w-11 h-11 rounded-full border border-indigo-500/30 object-cover">
-                        </div>
 
-                        <div class="grid grid-cols-2 gap-2 text-[11px]">
-                            <div class="bg-slate-900/60 p-2.5 rounded-lg border border-white/[0.03] space-y-1">
-                                <span class="text-slate-400 block font-bold text-[10px] uppercase tracking-wider">RATING & STREAK</span>
-                                <p>🔹 MMR: <strong class="text-white">2312</strong></p>
-                                <p>👑 Peak: <strong>2312</strong></p>
-                                <p>⚡ Streak: <span class="text-amber-400 font-bold">🔥 4 Wins</span></p>
+                            <div class="bg-[#0A0614] border border-white/10 rounded-xl p-3 flex flex-col items-center justify-center">
+                                <div id="card-avatar-border" class="w-20 h-20 rounded-full border-2 border-[#F59E0B] p-1 bg-[#1C1238] shadow-lg mb-2">
+                                    <img src="logo.jpg" alt="Avatar" class="w-full h-full rounded-full object-cover">
+                                </div>
+                                <span class="text-[10px] font-mono text-slate-400">UID: 752643541074706433</span>
                             </div>
-                            <div class="bg-slate-900/60 p-2.5 rounded-lg border border-white/[0.03] space-y-1">
-                                <span class="text-slate-400 block font-bold text-[10px] uppercase tracking-wider">PERFORMANCE</span>
-                                <p>⚔️ Main: <img src="emojis/warrior.png" class="cls-icon" alt=""> <strong>Warrior</strong></p>
-                                <p>🟢 Winrate: <strong class="text-emerald-400">100%</strong></p>
-                                <p>📊 Record: <strong>4W - 0L</strong></p>
+
+                            <div id="card-badges" class="p-2.5 rounded-xl flex flex-wrap justify-center gap-1.5 bg-[#0E091C] border border-white/10">
+                                <span class="bg-[#302008] border border-[#F59E0B] text-[#FEF08A] text-[10px] font-bold px-2 py-0.5 rounded">👑 DEVELOPER</span>
+                                <span class="bg-[#302008] border border-[#F59E0B] text-[#FEF08A] text-[10px] font-bold px-2 py-0.5 rounded">⚜️ CRESUS</span>
+                                <span class="bg-[#2D0C0C] border border-[#EF4444] text-[#FEE2E2] text-[10px] font-bold px-2 py-0.5 rounded">⚔️ WARLORD</span>
+                                <span class="bg-[#0C2A20] border border-[#10B981] text-[#A7F3D0] text-[10px] font-bold px-2 py-0.5 rounded">🔥 BEAST</span>
+                            </div>
+
+                            <div id="card-class-banner" class="bg-[#37280A] border border-[#F59E0B] py-2 px-3 rounded-xl flex justify-between items-center">
+                                <span id="card-class-text" class="text-[#FEF08A] font-bold">CLASS: WARRIOR (#1 Warrior)</span>
+                                <div class="flex text-amber-400 text-xs">★★★★★</div>
+                            </div>
+
+                            <div class="bg-[#0E091C] border border-white/10 p-3.5 rounded-xl grid grid-cols-2 gap-3">
+                                <div>
+                                    <span class="text-slate-400 block text-[10px]">RANK & ELO</span>
+                                    <strong id="card-elo-text" class="text-[#FEF08A] text-sm">MASTER (2312)</strong>
+                                    <span class="text-emerald-400 text-[10px] block mt-0.5">#1 Server Rank</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-slate-400 block text-[10px]">WINRATE</span>
+                                    <strong class="text-emerald-400 text-sm">100%</strong>
+                                    <span class="text-blue-300 text-[10px] block mt-0.5">4W - 0L Record</span>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="bg-slate-900/60 p-2.5 rounded-lg border border-white/[0.03] text-[11px] font-mono text-emerald-400">
-                            [🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩] • 4 Wins / 0 Losses
+                        <div class="mt-4 flex justify-between items-center text-[11px] text-slate-400 px-1">
+                            <span>Live Theme Preview: <strong id="current-theme-label" class="text-amber-400 font-mono">DEVELOPER GOLD</strong></span>
+                            <span class="text-emerald-400 font-semibold font-mono">/share Ready</span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Extra Modules & Side Mechanics -->
-        <section id="features" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06]">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Built-in Game Modes & Arena Economy</h2>
-                <p class="text-slate-400 mt-2 text-sm sm:text-base">Keep fighters engaged between mix sessions with mini-games and customization.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center text-base mb-4">
-                            <i class="fa-solid fa-mask"></i>
-                        </div>
-                        <h3 class="text-base font-bold text-white mb-2">Impostor & Chaos Modes</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed">
-                            Deploy secret saboteur lobbies with <code class="text-pink-300 font-mono">/impostor</code> (traitors receive private DM goals to throw the match) or randomized class mutations with <code class="text-pink-300 font-mono">/chaos</code>.
-                        </p>
-                    </div>
-                    <span class="text-[11px] text-pink-400 font-mono font-semibold mt-5 block">Premium Feature</span>
-                </div>
-
-                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center text-base mb-4">
-                            <i class="fa-solid fa-dice"></i>
-                        </div>
-                        <h3 class="text-base font-bold text-white mb-2">Casino Dice Duels (<span class="text-amber-400 font-mono text-xs">/dice</span>)</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed">
-                            Fighters challenge rivals to 1-100 high-stakes rolls for Arena Coins. Highest score takes the pot with auto-re-roll on ties and instant coin settlement.
-                        </p>
-                    </div>
-                    <span class="text-[11px] text-amber-400 font-mono font-semibold mt-5 block">Included in Pro & Premium</span>
-                </div>
-
-                <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-base mb-4">
-                            <i class="fa-solid fa-palette"></i>
-                        </div>
-                        <h3 class="text-base font-bold text-white mb-2">Card Themes & Shop (<span class="text-emerald-400 font-mono text-xs">/share</span>)</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed">
-                            Generate downloadable PNG player cards in discord with themes unlocked in <code class="text-emerald-300 font-mono">/shop</code>, including the <strong class="text-emerald-400">Emerald Luxury</strong> collection.
-                        </p>
-                    </div>
-                    <span class="text-[11px] text-emerald-400 font-mono font-semibold mt-5 block">Premium Feature</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials -->
-        <section id="reviews" class="max-w-5xl mx-auto px-6 py-20 border-t border-white/[0.06]">
-            <div class="text-center max-w-xl mx-auto mb-14">
-                <h2 class="text-3xl font-black text-white tracking-tight">Trusted by Server Administrators</h2>
-                <p class="text-slate-400 text-sm mt-1">Direct feedback from live Metin2 private server operators.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-9 h-9 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-xs">SA</div>
-                        <div>
-                            <h4 class="font-bold text-white text-sm">Oyz</h4>
-                            <span class="text-slate-500 text-xs">Rop2 Server Administrator</span>
-                        </div>
-                    </div>
-                    <p class="text-slate-400 text-xs leading-relaxed italic">
-                        "The bot created by Volg works perfectly, and Volg is very prompt in solving any issues related to the bot he made. I recommend the bot for fun and entertainment together with friends."
-                    </p>
-                </div>
-
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-9 h-9 rounded-full bg-pink-500/20 text-pink-300 flex items-center justify-center font-bold text-xs">GM</div>
-                        <div>
-                            <h4 class="font-bold text-white text-sm">Anonym player</h4>
-                            <span class="text-slate-500 text-xs">HammerPVP Community</span>
-                        </div>
-                    </div>
-                    <p class="text-slate-400 text-xs leading-relaxed italic">
-                        "Amazing bot, we use it in our PvP server for months and it works perfectly. Clean UI, instant voice moves, and fair matchmaking."
-                    </p>
                 </div>
             </div>
         </section>
@@ -462,18 +651,18 @@
         <!-- Pricing Grid -->
         <section id="pricing" class="max-w-5xl mx-auto px-6 py-20 border-t border-white/[0.06]">
             <div class="text-center max-w-xl mx-auto mb-14">
+                <span class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-widest block mb-2">Straightforward Plans</span>
                 <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Simple Licensing</h2>
                 <p class="text-slate-400 text-sm mt-1">Instant bot setup, 99.99% cloud uptime, and 24/7 technical support.</p>
 
                 <div class="flex flex-wrap justify-center items-center gap-2 mt-4 text-xs text-slate-400">
                     <span class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06]"><i class="fa-brands fa-paypal text-blue-400 mr-1"></i> PayPal</span>
                     <span class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06]"><i class="fa-solid fa-wallet text-orange-400 mr-1"></i> Revolut</span>
-                    <span class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06]"><i class="fa-brands fa-bitcoin text-amber-400 mr-1"></i> Crypto (BTC / ETH / SOL)</span>
+                    <span class="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.06]"><i class="fa-brands fa-bitcoin text-amber-400 mr-1"></i> Crypto (BTC / ETH / SOL / USDT)</span>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch max-w-4xl mx-auto">
-                <!-- Pro License -->
                 <div class="glass-card p-8 rounded-2xl flex flex-col justify-between text-left">
                     <div>
                         <span class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-wider">STANDARD NODE</span>
@@ -481,11 +670,10 @@
                         <div class="text-3xl font-black text-white my-4 font-mono">€4.99 <span class="text-xs font-normal text-slate-400">/ month</span></div>
 
                         <ul class="text-slate-300 text-xs space-y-3 mb-8">
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Full automated 5v5 mix & ranked queues</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Mirrored captain draft modes</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Real-time MMR balancing & instant voice routing</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Full automated custom ranked queues (any size)</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Full mathematical MMR balancing algorithm</li>
                             <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Permanent live sync standings leaderboard</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Arena Economy</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Arena Economy & Daily rewards</li>
                             <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Emergency player hot-swap (<code class="d-badge">/sub</code>) & AFK auto-jail</li>
                             <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Automated season resets with Elo soft-wipe (<code class="d-badge">/season</code>)</li>
                         </ul>
@@ -496,7 +684,6 @@
                     </a>
                 </div>
 
-                <!-- Premium License -->
                 <div class="glass-card p-8 rounded-2xl flex flex-col justify-between text-left relative ring-1 ring-indigo-500/50 shadow-2xl">
                     <div class="absolute -top-3 right-6 bg-gradient-to-r from-indigo-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
                         FEATURE COMPLETE
@@ -509,10 +696,10 @@
                         <ul class="text-slate-200 text-xs space-y-3 mb-8 font-medium">
                             <li class="flex items-center gap-2.5 text-white font-bold"><i class="fa-solid fa-star text-pink-400"></i> Everything included in Pro License</li>
                             <li class="flex items-center gap-2.5 text-pink-300"><i class="fa-solid fa-image text-pink-400"></i> Graphic PNG profile card generator (<code class="d-badge">/share</code>)</li>
-                            <li class="flex items-center gap-2.5 text-emerald-300"><i class="fa-solid fa-store text-emerald-400"></i> Arena Shop & Emerald Luxury custom themes</li>
+                            <li class="flex items-center gap-2.5 text-emerald-300"><i class="fa-solid fa-store text-emerald-400"></i> Arena Shop & full custom theme suite (Demon Tower, Frost, Inferno)</li>
                             <li class="flex items-center gap-2.5 text-pink-300"><i class="fa-solid fa-mask text-pink-400"></i> Impostor Mode (<code class="d-badge">/impostor</code>)</li>
                             <li class="flex items-center gap-2.5 text-pink-300"><i class="fa-solid fa-dice text-pink-400"></i> Mystery Class Arena (<code class="d-badge">/chaos</code>)</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> High-priority API bandwidth & priority support</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> High-priority API bandwidth & 24/7 dedicated support</li>
                         </ul>
                     </div>
 
@@ -523,12 +710,12 @@
             </div>
         </section>
 
-        <!-- Affiliate Program -->
+        <!-- Affiliate Rewards -->
         <section class="max-w-5xl mx-auto px-6 pb-20">
             <div class="glass-card p-6 sm:p-8 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6">
                 <div>
                     <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">AFFILIATE REWARDS</span>
-                    <h3 class="text-xl font-bold text-white mt-1">Earn €10.00 cash per 5 server recommendation</h3>
+                    <h3 class="text-xl font-bold text-white mt-1">Earn €10.00 cash per server recommendation</h3>
                     <p class="text-slate-400 text-xs mt-1 max-w-xl">Recommend Metin2 Mix PRO to server owners in your network. Receive instant PayPal payment per verified installation.</p>
                 </div>
                 <a href="https://discord.gg/emgX63dqFc" target="_blank" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs whitespace-nowrap transition shadow-lg shadow-amber-950/20">
@@ -542,6 +729,120 @@
         <div>&copy; 2026 Metin2 Mix PRO. All rights reserved.</div>
         <div>Not affiliated with Gameforge 4D GmbH or Webzen Inc.</div>
     </footer>
+
+    <!-- Interactive Scripts for Live Previews -->
+    <script>
+        const THEMES_PREVIEWS = {
+            developer: {
+                label: 'DEVELOPER GOLD',
+                labelColor: 'text-amber-400',
+                cardBg: '#261C08',
+                cardBorder: '#FBBF24',
+                innerBorder: '#B45309',
+                headerBg: '#37280A',
+                headerBorder: '#F59E0B',
+                accentColor: '#FEF08A',
+                avatarBorder: '#F59E0B'
+            },
+            beta: {
+                label: 'BETA TESTER SILVER',
+                labelColor: 'text-slate-300',
+                cardBg: '#161B22',
+                cardBorder: '#E2E8F0',
+                innerBorder: '#64748B',
+                headerBg: '#1E2630',
+                headerBorder: '#CBD5E1',
+                accentColor: '#F8FAFC',
+                avatarBorder: '#CBD5E1'
+            },
+            demon_tower: {
+                label: 'DEMON TOWER',
+                labelColor: 'text-purple-400',
+                cardBg: '#160A24',
+                cardBorder: '#C026D3',
+                innerBorder: '#581C87',
+                headerBg: '#230C37',
+                headerBorder: '#D946EF',
+                accentColor: '#E879F9',
+                avatarBorder: '#D946EF'
+            },
+            emerald_luxury: {
+                label: 'EMERALD LUXURY',
+                labelColor: 'text-emerald-400',
+                cardBg: '#0A2018',
+                cardBorder: '#10B981',
+                innerBorder: '#064E3B',
+                headerBg: '#0F3024',
+                headerBorder: '#34D399',
+                accentColor: '#10B981',
+                avatarBorder: '#34D399'
+            },
+            inferno: {
+                label: 'DOYYUMHWAN INFERNO',
+                labelColor: 'text-orange-400',
+                cardBg: '#280E08',
+                cardBorder: '#EA580C',
+                innerBorder: '#7C2D12',
+                headerBg: '#3C140A',
+                headerBorder: '#F97316',
+                accentColor: '#FDBA74',
+                avatarBorder: '#F97316'
+            },
+            ice_land: {
+                label: 'MOUNT SOHAN FROST',
+                labelColor: 'text-cyan-400',
+                cardBg: '#0A1C30',
+                cardBorder: '#38BDF8',
+                innerBorder: '#0369A1',
+                headerBg: '#0E2846',
+                headerBorder: '#7DD3FC',
+                accentColor: '#BAE6FD',
+                avatarBorder: '#7DD3FC'
+            }
+        };
+
+        function switchTheme(themeKey) {
+            const data = THEMES_PREVIEWS[themeKey];
+            if (!data) return;
+
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById('btn-' + themeKey);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            const card = document.getElementById('card-preview');
+            card.style.backgroundColor = data.cardBg;
+            card.style.borderColor = data.cardBorder;
+
+            document.getElementById('card-inner-border').style.borderColor = data.innerBorder;
+
+            const header = document.getElementById('card-header');
+            header.style.backgroundColor = data.headerBg;
+            header.style.borderColor = data.headerBorder;
+
+            const title = document.getElementById('card-title');
+            title.style.color = data.accentColor;
+
+            const classBanner = document.getElementById('card-class-banner');
+            classBanner.style.backgroundColor = data.headerBg;
+            classBanner.style.borderColor = data.headerBorder;
+
+            document.getElementById('card-class-text').style.color = data.accentColor;
+            document.getElementById('card-elo-text').style.color = data.accentColor;
+            document.getElementById('card-avatar-border').style.borderColor = data.avatarBorder;
+
+            const label = document.getElementById('current-theme-label');
+            label.textContent = data.label;
+            label.className = 'font-mono ' + data.labelColor;
+        }
+
+        function showCmdCategory(cat) {
+            document.querySelectorAll('.cmd-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + cat).classList.add('active');
+
+            document.querySelectorAll('.cmd-category').forEach(c => c.classList.add('hidden'));
+            document.getElementById('cat-' + cat).classList.remove('hidden');
+        }
+    </script>
 
 </body>
 </html>
