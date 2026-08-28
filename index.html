@@ -135,7 +135,7 @@
             </a>
 
             <div class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                <a href="#mmr-engine" class="hover:text-white transition">MMR Engine</a>
+                <a href="#mmr-engine" class="hover:text-white transition">Competitive Engine</a>
                 <a href="#flow" class="hover:text-white transition">Match Lifecycle</a>
                 <a href="#commands" class="hover:text-white transition">Commands</a>
                 <a href="#ranked" class="hover:text-white transition">Card Sandbox</a>
@@ -171,7 +171,7 @@
             </h1>
 
             <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Empower your private server with interactive lobby setup panels, mathematical Elo matchmaking, automated anti-AFK voice dispatch, match archive lookups, and customizable high-res profile cards.
+                Empower your private server with interactive lobby setup panels, competitive Elo matchmaking, automated anti-AFK voice dispatch, match archive lookups, and customizable high-res profile cards.
             </p>
 
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
@@ -193,7 +193,7 @@
                     <div class="text-xs text-slate-400 mt-0.5 font-medium">Interactive Panel UI</div>
                 </div>
                 <div class="p-3.5 border-l border-white/[0.06]">
-                    <div class="text-xl sm:text-2xl font-black text-emerald-400 font-mono">Elo Math</div>
+                    <div class="text-xl sm:text-2xl font-black text-emerald-400 font-mono">Fair Play</div>
                     <div class="text-xs text-slate-400 mt-0.5 font-medium">Parity, Captain & MVP</div>
                 </div>
                 <div class="p-3.5 border-l border-white/[0.06]">
@@ -203,66 +203,72 @@
             </div>
         </section>
 
-        <!-- MMR Engine Section -->
+        <!-- Competitive Engine Section -->
         <section id="mmr-engine" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06]">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-widest block mb-2">Competitive Engine</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">The Mathematical MMR Architecture</h2>
-                <p class="text-slate-400 mt-2 text-sm sm:text-base">An esports-grade algorithm calibrated to reward skill, squad leadership, and class versatility.</p>
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-widest block mb-2">Esports-Grade Experience</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Turn Casual PvP Into an Addictive Esports Scene</h2>
+                <p class="text-slate-400 mt-2 text-sm sm:text-base">A balanced, rewarding competitive ecosystem designed to boost daily server retention and motivate your players to grind 24/7.</p>
             </div>
 
             <div class="grid lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Left: Why Players & Owners Love It -->
                 <div class="lg:col-span-7 glass-card p-8 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <h3 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
-                            <i class="fa-solid fa-calculator text-indigo-400"></i> Expected Outcome & K-Factor Scaling
-                        </h3>
-                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
-                            Individual score deltas are determined by computing personal rating versus opposing squad average rating:
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-4">
+                            <i class="fa-solid fa-bolt text-indigo-400"></i> Engineered for Maximum Player Retention
+                        </div>
+                        <h3 class="text-2xl font-black text-white mb-3">Fair Matches. Constant Progression. Zero Drama.</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+                            No more stacked lobbies or imbalanced fights ruining player morale. Metin2 Mix PRO dynamically mirrors character classes, evaluates player pedigree, and creates fierce, neck-and-neck showdowns.
                         </p>
 
-                        <div class="bg-[#090D1A] p-4 rounded-xl border border-white/[0.06] font-mono text-xs text-indigo-300 mb-6 space-y-2">
-                            <div>Expected_Score = 1 / (1 + 10^((Opponent_Avg_MMR - Current_MMR) / 400))</div>
-                            <div class="text-slate-400 text-[11px] pt-2 border-t border-white/[0.06]">
-                                ↳ <strong>K-Factor 40</strong> for newcomers (&lt; 15 matches) for fast rank calibration.<br>
-                                ↳ <strong>K-Factor 28</strong> for seasoned veterans for leaderboard stabilization.
-                            </div>
-                        </div>
-
-                        <h4 class="text-sm font-bold text-white mb-3">Objective & Role Performance Modifiers</h4>
+                        <!-- Feature highlights -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                            <div class="bg-emerald-950/20 border border-emerald-500/20 p-3 rounded-xl">
-                                <span class="font-bold text-emerald-400 block mb-1">👑 Captain Bonus</span>
-                                <p class="text-slate-400 text-[11px]">Winning captains receive an extra <strong>+2 MMR bonus</strong> for directing draft picks.</p>
+                            <div class="bg-indigo-950/20 border border-indigo-500/20 p-3.5 rounded-xl">
+                                <span class="font-bold text-indigo-300 flex items-center gap-1.5 mb-1 text-sm">
+                                    <i class="fa-solid fa-scale-balanced text-indigo-400"></i> Intelligent Parity
+                                </span>
+                                <p class="text-slate-400 text-[11px] leading-relaxed">Matches are balanced by MMR and mirrored by class (Warrior vs Warrior, Sura vs Sura) for pure skill expression.</p>
                             </div>
-                            <div class="bg-amber-950/20 border border-amber-500/20 p-3 rounded-xl">
-                                <span class="font-bold text-amber-400 block mb-1">🏆 Peer-Elected MVP</span>
-                                <p class="text-slate-400 text-[11px]">Players elected MVP by match peers earn <strong>+5 MMR bonus</strong> on victory.</p>
+
+                            <div class="bg-emerald-950/20 border border-emerald-500/20 p-3.5 rounded-xl">
+                                <span class="font-bold text-emerald-300 flex items-center gap-1.5 mb-1 text-sm">
+                                    <i class="fa-solid fa-medal text-emerald-400"></i> Instant Discord Roles
+                                </span>
+                                <p class="text-slate-400 text-[11px] leading-relaxed">Climbing from Iron to Master instantly promotes players and reassigns prestigious colored Discord roles.</p>
                             </div>
-                            <div class="bg-blue-950/20 border border-blue-500/20 p-3 rounded-xl">
-                                <span class="font-bold text-blue-400 block mb-1">🪙 Arena Coin Rewards</span>
-                                <p class="text-slate-400 text-[11px]"><strong>+15 Coins</strong> per victory / <strong>+7 Coins</strong> per defeat to spend in <code class="d-badge text-[10px]">/shop</code>.</p>
+
+                            <div class="bg-amber-950/20 border border-amber-500/20 p-3.5 rounded-xl">
+                                <span class="font-bold text-amber-300 flex items-center gap-1.5 mb-1 text-sm">
+                                    <i class="fa-solid fa-crown text-amber-400"></i> Captain & MVP Pride
+                                </span>
+                                <p class="text-slate-400 text-[11px] leading-relaxed">Peer-voted MVPs and victorious draft callers earn prestige bonuses and boosted Arena Coins.</p>
                             </div>
-                            <div class="bg-rose-950/20 border border-rose-500/20 p-3 rounded-xl">
-                                <span class="font-bold text-rose-400 block mb-1">🛡️ Loss Clamping</span>
-                                <p class="text-slate-400 text-[11px]">Controlled boundaries prevent unfair rating drops (-10 min, -38 max).</p>
+
+                            <div class="bg-rose-950/20 border border-rose-500/20 p-3.5 rounded-xl">
+                                <span class="font-bold text-rose-300 flex items-center gap-1.5 mb-1 text-sm">
+                                    <i class="fa-solid fa-shield-halved text-rose-400"></i> Anti-Toxicity & Loss Guard
+                                </span>
+                                <p class="text-slate-400 text-[11px] leading-relaxed">Controlled loss clamping prevents unfair streaks, while queue dodgers receive automatic timeout jails.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs text-slate-400 font-mono">
-                        <span>Win Delta Bounds: <strong class="text-emerald-400">+12 to +45 MMR</strong></span>
-                        <span>Loss Delta Bounds: <strong class="text-rose-400">-10 to -38 MMR</strong></span>
+                    <div class="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs text-slate-300">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> 100% Automated</span>
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-check text-indigo-400"></i> Live Standings Sync</span>
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Seasonal Resets</span>
                     </div>
                 </div>
 
-                <!-- Tier Divisions Ladder -->
+                <!-- Right: Tier Divisions Ladder -->
                 <div class="lg:col-span-5 glass-card p-8 rounded-2xl flex flex-col justify-between">
                     <div>
                         <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-ranking-star text-amber-400"></i> Tier Divisions & Roles
+                            <i class="fa-solid fa-ranking-star text-amber-400"></i> 8 Competitive Tier Divisions
                         </h3>
-                        <p class="text-slate-400 text-xs mb-5">Automatic Discord rank role synchronization upon tier changes:</p>
+                        <p class="text-slate-400 text-xs mb-5">Seamless Discord role sync rewards your most dedicated PvP warriors:</p>
 
                         <div class="space-y-2 text-xs font-mono">
                             <div class="flex justify-between items-center bg-[#0B101E] p-2.5 rounded-xl border border-rose-500/30">
@@ -337,9 +343,27 @@
                                     <p>Type: <strong class="text-white">Body</strong> | Size: <strong class="text-emerald-400">5v5</strong></p>
                                     <p>Ready Check: <span class="text-emerald-400 font-mono text-[10px]">ENABLED</span></p>
                                 </div>
-                                <div class="pt-2 text-[10px] text-slate-300 space-y-0.5 border-t border-white/[0.05]">
-                                    <div class="flex justify-between"><span>⚔️ Warrior: <strong>2</strong></span><span>🔮 Sura: <strong>1</strong></span></div>
-                                    <div class="flex justify-between"><span>🥷 Ninja: <strong>1</strong></span><span>🐉 Dragon: <strong>1</strong></span></div>
+                                <div class="pt-2 text-[10px] text-slate-300 space-y-1 border-t border-white/[0.05]">
+                                    <div class="flex justify-between items-center">
+                                        <span class="flex items-center gap-1.5"><img src="emojis/warrior.png" class="w-3.5 h-3.5 object-contain" alt="Warrior"> Warrior:</span>
+                                        <strong>1 / 1</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="flex items-center gap-1.5"><img src="emojis/sura.png" class="w-3.5 h-3.5 object-contain" alt="Sura"> Sura:</span>
+                                        <strong>1 / 1</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="flex items-center gap-1.5"><img src="emojis/ninja.png" class="w-3.5 h-3.5 object-contain" alt="Ninja"> Ninja:</span>
+                                        <strong>1 / 1</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="flex items-center gap-1.5"><img src="emojis/dragon.png" class="w-3.5 h-3.5 object-contain" alt="Dragon"> Dragon:</span>
+                                        <strong>1 / 1</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="flex items-center gap-1.5"><img src="emojis/lycan.png" class="w-3.5 h-3.5 object-contain" alt="Lycan"> Lycan:</span>
+                                        <strong>1 / 1</strong>
+                                    </div>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-1.5 pt-1 text-[10px] font-bold font-mono">
@@ -355,7 +379,7 @@
                     </div>
                 </div>
 
-                <!-- Step 2 -->
+                <!-- Step 2 (Full 5v5 Mirrored Rosters with class icons) -->
                 <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -368,17 +392,25 @@
                         </p>
 
                         <div class="bg-[#0B101E] p-4 rounded-xl border border-white/[0.06] space-y-2 text-xs shadow-inner">
-                            <div class="font-bold text-white text-[11px] mb-1">⚔️ MATCH ACTIVE • ROSTERS LOCKED</div>
+                            <div class="font-bold text-white text-[11px] mb-1">⚔️ MATCH ACTIVE • 5v5 ROSTERS LOCKED</div>
                             <div class="grid grid-cols-2 gap-2 text-[10px]">
-                                <div class="bg-blue-950/30 border border-blue-500/20 p-2 rounded-lg">
-                                    <span class="text-blue-300 font-bold block mb-1">🔵 BLUE (Avg: 1142)</span>
-                                    <p>⚔️ <span class="d-mention">@Volg</span> 👑</p>
-                                    <p class="mt-1">🔮 <span class="d-mention">@Admin</span></p>
+                                <!-- Team Blue -->
+                                <div class="bg-blue-950/30 border border-blue-500/20 p-2 rounded-lg space-y-1">
+                                    <span class="text-blue-300 font-bold block mb-1">🔵 BLUE (Avg: 1245)</span>
+                                    <p class="flex items-center gap-1.5"><img src="emojis/warrior.png" class="w-3.5 h-3.5 object-contain" alt="Warrior"><span class="d-mention">@Volg</span> 👑</p>
+                                    <p class="flex items-center gap-1.5"><img src="emojis/sura.png" class="w-3.5 h-3.5 object-contain" alt="Sura"><span class="d-mention">@Player1</span></p>
+                                    <p class="flex items-center gap-1.5"><img src="emojis/ninja.png" class="w-3.5 h-3.5 object-contain" alt="Ninja"><span class="d-mention">@Player2</span></p>
+                                    <p class="flex items-center gap-1.5"><img src="emojis/dragon.png" class="w-3.5 h-3.5 object-contain" alt="Shaman"><span class="d-mention">@Player3</span></p>
+                                    <p class="flex items-center gap-1.5"><img src="emojis/lycan.png" class="w-3.5 h-3.5 object-contain" alt="Lycan"><span class="d-mention">@Player4</span></p>
                                 </div>
-                                <div class="bg-red-950/30 border border-red-500/20 p-2 rounded-lg">
-                                    <span class="text-red-300 font-bold block mb-1">🔴 RED (Avg: 1138)</span>
-                                    <p>⚔️ <span class="d-mention">@MixPro</span> 👑</p>
-                                    <p class="mt-1">🔮 <span class="d-mention">@Player</span></p>
+                                <!-- Team Red -->
+                                <div class="bg-red-950/30 border border-red-500/20 p-2 rounded-lg space-y-1">
+                                    <span class="text-red-300 font-bold block mb-1">🔴 RED (Avg: 1240)</span>
+                                    <p class="flex items-center gap-1.5"><img src="emojis/warrior.png" class="w-3.5 h-3.5 object-contain" alt="Warrior"><span class="d-mention">@Fuschia</span> 👑</p>
+                                    <p class="flex items-center gap-1.5"><img src="emojis/sura.png" class="w-3.5 h-3.5 object-contain" alt="Sura"><span class="d-mention">@Player5</span></p>
+                                    <p class="flex items-center gap-1.5"><img src="emojis/ninja.png" class="w-3.5 h-3.5 object-contain" alt="Ninja"><span class="d-mention">@Player6</span></p>
+                                    <p class="flex items-center gap-1.5"><img src="emojis/healer.png" class="w-3.5 h-3.5 object-contain" alt="Shaman"><span class="d-mention">@Player7</span></p>
+                                    <p class="flex items-center gap-1.5"><img src="emojis/lycan.png" class="w-3.5 h-3.5 object-contain" alt="Lycan"><span class="d-mention">@Player8</span></p>
                                 </div>
                             </div>
                         </div>
@@ -397,14 +429,14 @@
                         </div>
                         <h3 class="text-lg font-bold text-white mb-2">Outcome, ratings & archives</h3>
                         <p class="text-slate-400 text-xs leading-relaxed mb-5">
-                            One click resolves the match, assigns sequentials IDs (<code class="d-badge text-[10px]">#0001</code>), updates the live leaderboard, and enables MVP elections.
+                            One click resolves the match, assigns sequential IDs (<code class="d-badge text-[10px]">#0001</code>), updates the live leaderboard, and enables MVP elections.
                         </p>
 
                         <div class="bg-[#0B101E] p-4 rounded-xl border border-white/[0.06] space-y-2 text-xs shadow-inner">
                             <div class="font-bold text-emerald-400 text-[11px]">🏁 BLUE VICTORY • MATCH #0042</div>
                             <div class="space-y-1 text-[10px] text-slate-300 pt-1">
-                                <p>&gt; <span class="d-mention">@Volg</span> • <span class="d-badge">1081 ➔ 1107</span> <span class="text-emerald-400 font-bold">(+26)</span> 👑 🏆</p>
-                                <p class="text-slate-400">&gt; <span class="d-mention">@MixPro</span> • <span class="d-badge">1038 ➔ 1020</span> <span class="text-rose-400 font-bold">(-18)</span></p>
+                                <p>&gt; <span class="d-mention">@Volg</span> • <span class="d-badge">1245 ➔ 1271</span> <span class="text-emerald-400 font-bold">(+26)</span> 👑 🏆</p>
+                                <p class="text-slate-400">&gt; <span class="d-mention">@Fuschia</span> • <span class="d-badge">1240 ➔ 1222</span> <span class="text-rose-400 font-bold">(-18)</span> 👑</p>
                             </div>
                             <div class="pt-1.5 border-t border-white/[0.06] text-[10px] text-amber-300">
                                 🏆 <span class="d-mention">@Volg</span> voted MVP (+5 MMR bonus)
@@ -582,7 +614,7 @@
                             👑 Owner Gold
                         </button>
                         <button onclick="switchTheme('default')" id="btn-default" class="theme-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-bold text-left transition hover:border-zinc-500">
-                            🖤 Bug Hunter
+                            🖤 Matte Black
                         </button>
                         <button onclick="switchTheme('blood_gold')" id="btn-blood_gold" class="theme-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-bold text-left transition hover:border-rose-500">
                             🩸 Blood Gold
@@ -691,7 +723,7 @@
 
                         <ul class="text-slate-300 text-xs space-y-3 mb-8">
                             <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Full automated custom ranked queues (any size)</li>
-                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Mathematical MMR algorithm & expected score math</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Esports-grade Elo rating engine & balanced matchmaking</li>
                             <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Permanent live sync standings leaderboard</li>
                             <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Match archives inspection (<code class="d-badge">/match &lt;id&gt;</code>)</li>
                             <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-400"></i> Player hot-swapping (<code class="d-badge">/sub</code>) & auto-jail penalties</li>
@@ -751,7 +783,6 @@
     </footer>
 
     <script>
-        // Exact matching colors from profile_card.py THEMES
         const THEMES_PREVIEWS = {
             developer: {
                 label: 'OWNER GOLD',
@@ -765,7 +796,7 @@
                 avatarBorder: '#f59e0b'
             },
             default: {
-                label: 'Bug Hunter',
+                label: 'MATTE BLACK',
                 labelColor: 'text-zinc-400',
                 cardBg: 'rgba(15, 15, 18, 0.96)',
                 cardBorder: '#27272a',
@@ -922,7 +953,6 @@
             });
         }
 
-        // Initialisation automatique sur le thème Owner / Developer
         window.addEventListener('DOMContentLoaded', () => {
             switchTheme('developer');
         });
